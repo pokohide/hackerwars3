@@ -261,7 +261,7 @@ footer {
 }
 
 
-.alert {
+.alert-warning{
   margin: 10px 0px;
   position: absolute;
   z-index: 10;
@@ -272,4 +272,8 @@ footer {
   width: 200px;
   height: 60px;
   font-size: 30px;
+}
+
+.space4 {
+  overflow-y: scroll;
 }
