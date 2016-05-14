@@ -148,6 +148,7 @@ $('.users.show').ready ->
 				console.log data
 				for tweet, index in data
 					insert_tweet(tweet, index)
+				#fetch_tweet()
 		)
 	fetch_tweet()
 
