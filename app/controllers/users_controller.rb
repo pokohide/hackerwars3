@@ -17,17 +17,16 @@ class UsersController < ApplicationController
 
   def get_cards
   	gon.user_id = current_user.id
-  	@cards = Card.all
   	@cards = Card.group(:profile_image_url).all
   end
 
   def post_cards
   	require 'csv'
   	@user = User.find(params[:id])
-  	@card_ids = params[:ids]
-  	@card_ids.parse_csv do |card_id|
-  		card = Card.find_by(card_id)
-  		card.user_id = @user.id
+  	params[:ids].parse_csv.each do |card_id|
+  		logger.debug card_id
+  		card = Card.find(card_id.to_i)
+  		card.update(user_id: @user.id)
   		card.save
   	end
   	render nothing: true
