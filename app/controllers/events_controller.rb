@@ -37,7 +37,7 @@ class EventsController < ApplicationController
   	event = Event.find(params[:id])
   	card = Card.find(params[:card_id])
   	if event.finished 	# trueだったら、その順位と他の結果を表示する
-  		result = event.result
+  		ranking = event.ranks
   	else
   		render 
   	end
