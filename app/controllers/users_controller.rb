@@ -31,6 +31,8 @@ class UsersController < ApplicationController
   		card.update(user_id: @user.id)
   		card.save
   	end
+  	@user.score += 10
+  	@user.save
   	render nothing: true
   end
 

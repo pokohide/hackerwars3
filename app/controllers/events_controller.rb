@@ -30,4 +30,10 @@ class EventsController < ApplicationController
   		render json: data.to_json
   	end
   end
+
+  # 過去のイベント一覧
+  def result
+  	@events = Event.order('id desc').all
+  end
+
 end

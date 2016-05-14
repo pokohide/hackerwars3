@@ -66,36 +66,6 @@ $('.users.get_cards').ready ->
 
 
 $('.users.show').ready ->
-  trend_tweet_feed = ->
-    $.ajax(
-      url: "/api/tweet"
-      async: true
-      type: 'GET'
-      dataType: 'json',
-      success: (response) ->
-        for tweet in response
-          console.log tweet
-          $tweet_board = $("<div class='bs-component'></div>")
-          html = """
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                <h3 class="panel-title"></h3>
-                #{tweet.name} @#{tweet.screen_name}
-              </div>
-              <div class="panel-body">
-                #{tweet.full_text}
-              </div>
-            </div>
-          """
-          $tweet_board.html(html)
-          $tweet_board.appendTo($('div.bs-component'))
-
-      error: (req, err) ->
-        console.log err
-    )
-
-  trend_tweet_feed()
-
 	# ajaxで最新イベントがあるかをポーリングする
 	polling_recent_event = (event_id) ->
 		$.ajax(
@@ -165,6 +135,37 @@ $('.users.show').ready ->
 	$(document).on 'click', '#close_event', ->
 		dismiss_event()
 
+	# tweetをapiを叩いて読み込む
+	fetch_tweet = ->
+		$.ajax(
+			url: '/api/tweet'
+			async: true
+			type: 'GET'
+			dataType: 'json'
+			error: (jqXHR, textStatus, errorThrown) ->
+				alert '登録に失敗しました。'
+			success: (data, textStatus, jqXHR) ->
+				console.log data
+				for tweet, index in data
+					insert_tweet(tweet, index)
+		)
+	fetch_tweet()
+
+	insert_tweet = (tweet, index) ->
+		$tweet = $("<li class='tweet' style='margin-bottom:4px;'></li>")
+		html = """
+		<div class="well well-sm">
+			<p><b class="name">#{tweet.name}</b> @ #{tweet.screen_name}</p>
+			<div class="text">
+				#{tweet.full_text}
+			</div>
+		</div>
+		"""
+		$tweet.html(html)
+		$tweet.hide()
+		setTimeout ->
+			$tweet.prependTo( $('ul.tweets') ).fadeIn(500)
+		, 500 * index
 
 	# このevent_idを更新していく。
 	window.event_id = gon.event_id

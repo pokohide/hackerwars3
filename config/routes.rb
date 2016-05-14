@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'results' => 'events#result'
+
   get 'poll_event/:id' => 'events#polled'
   post 'push_event/:id/with/:card_id' => 'events#pushed'
 
