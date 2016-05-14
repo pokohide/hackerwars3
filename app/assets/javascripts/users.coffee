@@ -79,7 +79,7 @@ $('.users.show').ready ->
 				console.log data
 				if data.id != window.event_id
 					window.event_id = data.id
-					console.log window.event_id
+					window.answer_time = true
 		)
 
 	push_event_with_id = (event_id, card_id) ->
@@ -94,27 +94,34 @@ $('.users.show').ready ->
 		)
 
 	# トレンドがtrendのイベントをポップアップする。時間も表示する。
-	create_event = (trend) ->
+	display_event = (trend) ->
 		$event_board = $("<div class='jumbotron event_board'></div>")
 
 		html = """
-  <button type="button" class="close" id="close_event" data-dismiss="modal" aria-hidden="true">×</button>
-  <h1>#{trend}</h1>
+  			<button type="button" class="close" id="close_event" data-dismiss="modal" aria-hidden="true">×</button>
+  			<br>
+  			<p class="event_title">現在のトレンドは<b>#{trend}</b>です。</p>
 
-  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-
-  <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-
+  			<br>
+  			<h5>このトレンドと相関関係の高そうな手持ちのアカウントを選択して世界中のみんなのアカウントを奪い合ってください</h5>
 		"""
 		$event_board.html(html)
 		$event_board.appendTo( $('body') ).fadeIn(500)
+
+	dismiss_event = ->
+		$('.event_board').hide()
+		window.answer_time = false
+
+	$(document).on 'click', '#close_event', ->
+		dismiss_event()
 
 
 	# このevent_idを更新していく。
 	#window.event_id = gon.event_id
 	window.event_id = 0
+	window.answer_time = false
 
-	create_event('koskaosmao')
+	display_event('大統領選')
 	
 
 	# 5秒に一回サーバーにアクセスして、イベントが更新されているかを見る
