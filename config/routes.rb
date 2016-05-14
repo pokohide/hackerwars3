@@ -11,4 +11,9 @@ Rails.application.routes.draw do
       post 'post_cards'
     end
   end
+
+  # TwitterStreamingAPI
+  namespace 'api', :module => 'api' do
+    get    'tweetstreaming'       => 'tweetstreaming#index'
+  end
 end
