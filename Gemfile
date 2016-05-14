@@ -26,7 +26,7 @@ gem 'bootstrap3-rails'
 gem 'twitter-bootstrap3-rails'
 gem 'bootstrap-material-design'
 gem 'slim-rails'
-gem 'gon' 
+gem 'gon'
 gem 'material_icons'
 
 gem 'devise'
@@ -39,6 +39,9 @@ gem 'rake'        # => rakeタスクを定期実行して勉強ログを取る
 # for API
 gem 'jbuilder', '~> 2.0'
 gem 'yajl-ruby' # for jbuilder. faster background
+
+#for TwitterStreamingAPI
+gem 'tweetstream'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -54,7 +57,7 @@ group :development, :test do
   gem 'better_errors'       # 開発中のエラー画面をリッチにする
   gem 'binding_of_caller'   # 開発中のエラー画面にさらに変数の値を表示する
   gem 'rails-erd'           # => モデルのER図を作ってくれる
-  #gem 'rack-mini-profiler'  # => レスポンス速度, sql発行を確認 
+  #gem 'rack-mini-profiler'  # => レスポンス速度, sql発行を確認
   gem 'byebug'
   gem 'sqlite3'
 end
@@ -74,4 +77,3 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-
