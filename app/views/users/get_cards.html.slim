@@ -1,14 +1,14 @@
 .cards_field
   .row
 	- @cards.each do |card|
-  	  .col-sm-3.col-md-2.card_field#card style="margin-bottom:15px;"
+  	  .col-sm-3.col-md-2.card_field style="margin-bottom:15px;" data-id="#{card.id}"
   	  	.thumbnail style="margin-bottom:0px;"
   	  	  = card_thumbnail card.profile_image_url, style: 'width: 100%'
   	    .caption.text-center
     	  b = truncate card.name, length: 10
 
-.panel.panel-default style='min-height:185px;position:fixed;bottom:0px;width:80%;padding-bottom:10px;border:#333;'
-  .panel-heading 
+.panel.panel-default style='min-height:196px;position:fixed;bottom:0px;width:80%;padding-bottom:10px;border:3px solid #333'
+  .panel-heading style='margin-bottom:5px;'
   	h5 取得するアカウント
   ul.have_cards
 

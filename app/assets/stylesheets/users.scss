@@ -29,7 +29,7 @@
 		ul.have_cards {
 			list-style: none;
 			display: inline;
-			padding-top: 4px;
+			margin-right: 50px;
 			li {
 				display: inline-block;
 				width: 100px;
@@ -37,7 +37,6 @@
 					width: 100px;
 				}
 			}
-			margin-right: 50px;
 		}
 		.right_area {
 			position: absolute;

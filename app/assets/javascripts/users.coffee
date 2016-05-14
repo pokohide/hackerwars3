@@ -5,12 +5,20 @@
 $('.users.get_cards').ready ->
 	card_num = 0
 	max_num = 8
+	card_ids = []
+	card_srcs = []
+
 	$('#card_count').text('0/8')
 	$('.card_field').on 'click', ->
-		card_num += 1
 		src = $(this).find('img').attr('src')
 		name = $(this).find('b').text()
-		return if card_num > max_num
+		id = $(this).attr('data-id')
+
+		return if (src in card_srcs) || card_num > max_num - 1
+		
+		card_num += 1
+		card_srcs.push src
+		card_ids.push id
 		$('#card_count').text(card_num + '/' + max_num)
 		add_card src, name
 
