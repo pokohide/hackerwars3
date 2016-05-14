@@ -4,7 +4,7 @@
 
 $('.users.get_cards').ready ->
 	card_num = 0
-	max_num = 8
+	max_num = 30
 	card_ids = []
 	card_srcs = []
 
@@ -15,7 +15,7 @@ $('.users.get_cards').ready ->
 		id = $(this).attr('data-id')
 
 		return if (src in card_srcs) || card_num > max_num - 1
-		
+
 		card_num += 1
 		card_srcs.push src
 		card_ids.push id
@@ -27,7 +27,7 @@ $('.users.get_cards').ready ->
 		html = """
 			<div class='thumbnail' style='margin-bottom:0'>
 				<img src="#{src}" style='width:100%'>
-			</div> 
+			</div>
 			<div class='caption text-center'>
 				<b>#{name}</b>
 			</div>

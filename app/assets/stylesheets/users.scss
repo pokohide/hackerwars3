@@ -51,9 +51,20 @@
 			}
 			#use_this_card {
 				bottom: 0px;
-			}		
+			}
 		}
 	}
+
+.scroll {
+    max_height: 192px;
+    width: 80%;
+    padding: 5px;
+    overflow-x: auto;
+    border: 1px solid #CCC;
+    -webkit-overflow-scrolling: touch;
+}
+
+
 	.space {
 		height: 250px;
 		margin-bottom: 9px;
@@ -72,7 +83,7 @@
             padding: 0;
             margin: 10px auto;
             border: 1px solid #ddd;
-            border-radius: 5px;            
+            border-radius: 5px;
         }
         .user_score {
             float: right;
@@ -147,7 +158,7 @@
 			}
 			#push_cards {
 				bottom: 0px;
-			}		
+			}
 		}
 	}
 }
