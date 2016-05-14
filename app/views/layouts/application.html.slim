@@ -15,7 +15,7 @@ head
         header.clearfix
           == render 'templates/header'
           == yield :header
-      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10
+      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10 style="min-height: 600px;"
         = alert_or_notice alert, notice
         .continer-fluid
           .row

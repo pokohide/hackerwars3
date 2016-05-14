@@ -13,6 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require jquery.lazyload.min
 //= require bootstrap
 //= require bootstrap-material-design
 //= require_tree .
+
+$(function(){
+    $("img.lazy").lazyload( {
+        threshold: 1,
+        effect: "fadeIn"
+    });
+});

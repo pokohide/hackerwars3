@@ -20,7 +20,7 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
         - if user_signed_in?
           li.dropdown
             a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-              /= thumbnail current_user.thumb(:thumb)
+              = thumbnail current_user.thumbnail
               span.username
                 = current_user.username
 

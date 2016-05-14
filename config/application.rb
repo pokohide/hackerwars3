@@ -23,6 +23,16 @@ module Hackerwars3
     config.generators.template_engine = :slim 
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    config.active_record.raise_in_transactional_callbacks = true 
+       
+    # Nodeモジュールのパス指定
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+    # Add the fonts path
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
+    config.assets.paths << Rails.root.join("app", "assets", "images")
+    # Precompile additional assets
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   end
 end
