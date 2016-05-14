@@ -37,9 +37,12 @@ class EventsController < ApplicationController
   	event = Event.find(params[:id])
   	card = Card.find(params[:card_id])
   	if event.finished 	# trueだったら、その順位と他の結果を表示する
-  		ranking = event.ranks
+  		rank, ranking = event.ranking card.id
+  		data = {response: 'ok', rank: rank, ranking: ranking}
+  		render json: data.to_json 
   	else
-  		render 
+  		data = {response: 'ng'}
+  		render json data.to_json
   	end
   end
 
