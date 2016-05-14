@@ -4,10 +4,9 @@
 
 .users.show {
 	width: 80%;
-	min-height: 500px;
+	min-height: 480px;
 	margin: 0 auto;
 	margin-top: 30px;
-	margin-bottom: 190px;
 	.panel {
 		ul.your_cards {
 			list-style: none;
@@ -36,6 +35,47 @@
 			}		
 		}
 	}
+	.space {
+		height: 250px;
+		margin-bottom: 9px;
+		background: #e5e5e5;
+		padding: 5px;
+	}
+    /* ユーザ情報 */
+    .user_info {
+        .progress-bar {
+            background-color: #00CE9B;
+        }
+        .user_thumbnail {
+            width: 100%;
+            height: auto;
+            padding: 0;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;            
+        }
+        .user_score {
+            float: right;
+            text-align: right;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: -15px;
+        }
+        .user_level {
+            text-align: center;
+            margin: 10px auto;
+            width: 100%;
+            padding: 0 auto;
+            border-bottom: 3px solid #66ccff;
+            span {
+                font-size: 40px;
+                font-family: Arial;
+                font-size: bold;
+                color: #333;
+                line-height: 50px;
+            }
+        }
+    }
 }
 
 .users.get_cards {

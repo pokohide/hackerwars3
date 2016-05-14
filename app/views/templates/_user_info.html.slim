@@ -1,0 +1,35 @@
+section
+  .container-fluid
+    .row
+      .col-sm-4.text-center
+        .thumbnail style="width:90%;margin:0 auto;margin-top:40px;"
+          = thumbnail @user.thumbnail, class: 'thumb', style: 'width: 100%;'   
+        h3 #{@user.username}   
+      .col-sm-8 style="margin-top: 0px;"
+        .col-sm-4
+          section.user_level
+            span #{@user.score + 213 / 60}
+            b Lv.
+        .cols-m-7
+          section.user_progress
+            .progress style="margin-top:35px;"
+              .progress-bar role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%"
+                span 0%
+            .user_score
+              = @user.score + 213
+              | score
+        section.user_myself style="margin-top:20px;"
+          table.table.table-striped.table-hover
+            tbody
+              tr
+                td 勝率
+                td 5戦3勝
+              tr
+                td 総アカウント数
+                td = @user.cards.count
+              tr
+                td 総フォロワー数
+                td #{@user.cards.sum(:followers_count)}人
+              tr 
+                td 総ツイート数
+                td #{@user.cards.sum(:tweets_count)}人
