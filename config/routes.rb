@@ -12,8 +12,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # TwitterStreamingAPI
+  # API
   namespace 'api', :module => 'api' do
     get    'tweet'       => 'tweet#index'
+    get    'trend'       => 'trend#index'
   end
 end
