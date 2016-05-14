@@ -6,6 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :result
       t.time :start_time
       t.time :end_time
+      t.boolean :finished, default: false
 
       t.timestamps null: false
     end
