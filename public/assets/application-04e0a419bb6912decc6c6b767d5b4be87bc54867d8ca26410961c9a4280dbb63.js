@@ -14979,6 +14979,161 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
 
 
 }).call(this);
+(function() {
+
+
+}).call(this);
+(function() {
+
+
+}).call(this);
+(function() {
+  var indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  $('.users.get_cards').ready(function() {
+    var add_card, card_ids, card_num, card_srcs, max_num, push_cards;
+    card_num = 0;
+    max_num = 8;
+    card_ids = [];
+    card_srcs = [];
+    $('#card_count').text('0/8');
+    $('.card_field').on('click', function() {
+      var id, name, src;
+      src = $(this).find('img').attr('src');
+      name = $(this).find('b').text();
+      id = $(this).attr('data-id');
+      if ((indexOf.call(card_srcs, src) >= 0) || card_num > max_num - 1) {
+        return;
+      }
+      card_num += 1;
+      card_srcs.push(src);
+      card_ids.push(id);
+      $('#card_count').text(card_num + '/' + max_num);
+      return add_card(src, name);
+    });
+    add_card = function(src, name) {
+      var $li, html;
+      $li = $('<li class="have_card" style="width:100px;margin:0 8px"></li>');
+      html = "<div class='thumbnail' style='margin-bottom:0'>\n	<img src=\"" + src + "\" style='width:100%'>\n</div> \n<div class='caption text-center'>\n	<b>" + name + "</b>\n</div>";
+      $li.html(html);
+      return $li.appendTo($('ul.have_cards')).fadeIn(500);
+    };
+    $('#push_cards').on('click', function(e) {
+      e.preventDefault();
+      if (card_ids.length > 0) {
+        return push_cards(card_ids);
+      }
+    });
+    return push_cards = function(ids) {
+      var i, id, index, len, push_ids;
+      $("#loading").show();
+      push_ids = "";
+      for (index = i = 0, len = ids.length; i < len; index = ++i) {
+        id = ids[index];
+        if (index === 0) {
+          push_ids += "" + id;
+        } else {
+          push_ids += "," + id;
+        }
+      }
+      console.log(push_ids);
+      $.ajax({
+        url: "/users/" + gon.user_id + "/post_cards",
+        async: true,
+        type: 'POST',
+        data: {
+          ids: push_ids
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+          return alert('登録に失敗しました。');
+        },
+        success: function(data, textStatus, jqXHR) {
+          return window.location.href = "/users/" + gon.user_id;
+        }
+      });
+      return $("#loading").fadeOut(1000);
+    };
+  });
+
+  $('.users.show').ready(function() {
+    var dismiss_event, display_event, polling_recent_event, push_event_with_id, timer;
+    polling_recent_event = function(event_id) {
+      return $.ajax({
+        url: "/poll_event/" + event_id,
+        async: true,
+        type: 'GET',
+        error: function(jqXHR, textStatus, errorThrown) {
+          return alert('登録に失敗しました。');
+        },
+        success: function(data, textStatus, jqXHR) {
+          console.log(data);
+          if (data.id !== window.event_id && $('body').hasClass('show')) {
+            window.event_id = data.id;
+            window.answer_time = true;
+            return display_event(data.trend);
+          }
+        }
+      });
+    };
+    push_event_with_id = function(event_id, card_id) {
+      $("#loading").show();
+      $.ajax({
+        url: "/push_event/" + event_id + "/with/" + card_id,
+        async: true,
+        type: 'POST',
+        error: function(jqXHR, textStatus, errorThrown) {
+          return alert('登録に失敗しました。');
+        },
+        success: function(data, textStatus, jqXHR) {
+          return console.log(data);
+        }
+      });
+      return $("#loading").fadeOut(1000);
+    };
+    display_event = function(trend) {
+      var $event_board, html;
+      $event_board = $("<div class='jumbotron event_board'></div>");
+      html = "<button type=\"button\" class=\"close\" id=\"close_event\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n<br>\n<p class=\"event_title\">現在のトレンドは<b>" + trend + "</b>です。</p>\n\n<br>\n<h5 class=\"explain\">このトレンドと相関関係の高そうな手持ちのアカウントを選択して世界中のみんなのアカウントを奪い合ってください</h5>";
+      $event_board.html(html);
+      return $event_board.appendTo($('body')).fadeIn(500);
+    };
+    dismiss_event = function() {
+      $('.event_board').hide();
+      return window.answer_time = false;
+    };
+    $(document).on('click', '#close_event', function() {
+      return dismiss_event();
+    });
+    window.event_id = gon.event_id;
+    window.answer_time = false;
+    timer = setInterval(function() {
+      if (false || !$('body').hasClass('show')) {
+        clearInterval(timer);
+      }
+      return polling_recent_event(window.event_id);
+    }, 5000);
+    $('.users.show .your_cards li').on('click', function() {
+      $('.your_cards li.checked').removeClass('checked');
+      return $(this).addClass('checked');
+    });
+    return $('.users.show .use_this_card').on('click', function(e) {
+      var card_id;
+      e.preventDefault();
+      if (!window.answer_time) {
+        alert('まだトレンドは発表されていません。');
+        return;
+      }
+      if ($('.your_cards li.checked').size === 0) {
+        alert('カードを選択してください。');
+      }
+      card_id = parseInt($('.your_cards li.checked').attr('data-id'), 10);
+      push_event_with_id(window.event_id, card_id);
+      return dismiss_event();
+    });
+  });
+
+}).call(this);
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -15004,4 +15159,9 @@ $(function(){
         threshold: 1,
         effect: "fadeIn"
     });
+    $("body").bind("ajaxSend", function(c,xhr){
+		$( window ).bind( 'beforeunload', function() {
+			xhr.abort();
+		})
+	});
 });
