@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :get_cards]
   def index
+  	@users = User.all
   end
 
   def show

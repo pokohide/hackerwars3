@@ -4,7 +4,7 @@
 
 $('.users.get_cards').ready ->
 	card_num = 0
-	max_num = 8
+	max_num = 5
 	card_ids = []
 	card_srcs = []
 
@@ -144,6 +144,7 @@ $('.users.show').ready ->
 			return
 		if $('.your_cards li.checked').size == 0
 			alert 'カードを選択してください。'
+			return
 
 		card_id = parseInt $('.your_cards li.checked').attr('data-id'), 10
 		# 選択したカードをイベントに登録する

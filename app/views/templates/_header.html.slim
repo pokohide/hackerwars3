@@ -38,9 +38,9 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
                   i.glyphicon.glyphicon-user
                   |  マイページ 
               li
-                = link_to edit_user_registration_path do
-                  i.glyphicon.glyphicon-cog
-                  |  プロフィール変更
+                = link_to users_path do
+                  i.glyphicon.glyphicon-list-alt
+                  |  ユーザ一覧
               li
                 = link_to destroy_user_session_path, method: :delete do
                   i.glyphicon.glyphicon-off
