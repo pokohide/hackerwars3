@@ -1,0 +1,30 @@
+doctype html
+head
+  = include_gon
+  title Hackerwars3
+  = stylesheet_link_tag    "application", media: "all"
+  = javascript_include_tag "application"
+  = csrf_meta_tags
+.wrap
+  body class="#{controller_name} #{action_name}"
+  #loading
+    = image_tag "loading.gif", size: '43x11', alt: 'loading...'
+  .countatiner-fluid
+    .row
+      .col-sm-12.col-md-12 style="padding:0;margin:0"
+        header.clearfix
+          == render 'templates/header'
+          == yield :header
+      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10
+        = alert_or_notice alert, notice
+        .continer-fluid
+          .row
+            .col-sm-12.col-md-8.col-lg-9
+              article.main
+                == yield
+            .col-sm-12.col-md-4.col-lg-3
+              article.sidebar
+                == yield :sidebar
+      .col-sm-12.col-md-12
+        footer
+          == render 'templates/footer'
