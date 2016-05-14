@@ -1,14 +1,15 @@
 require 'twitter'
 
-namespace :twitter_streaming do
+namespace :twitter_api do
   desc "ツイート"
   task :get_tweets => :environment do
     client = get_twitter_client
     query = "東京"
-    result_tweets = client.search(query, count: 10, result_type: "popular",  exclude: "retweets")
+    result_tweets = client.search(query, count: 10, locale: "ja", result_type: "popular",  exclude: "retweets")
     result_tweets.each_with_index do |tw, i|
-      puts "#{i}: @#{tw.user.screen_name}: #{tw.full_text}"
-      # TweetMongo.create!(data: tweet.to_json) 
+      puts "#{i}: #{tw.id} @#{tw.user.screen_name}: #{tw.full_text}"
+      tweet = Tweet.new({tweet_id: tw.id, name: tw.user.name, screen_name: tw.user.screen_name, full_text: tw.full_text})
+      tweet.save
     end
   end
 end
