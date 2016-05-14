@@ -146,9 +146,10 @@ $('.users.show').ready ->
 				alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
-				for tweet, index in data
+				return if window.tweet_id == data.id
+				window.tweet_id = data.id
+				for tweet, index in data.response
 					insert_tweet(tweet, index)
-				#fetch_tweet()
 		)
 	fetch_tweet()
 
@@ -170,6 +171,7 @@ $('.users.show').ready ->
 
 	# このevent_idを更新していく。
 	window.event_id = gon.event_id
+	window.tweet_id = 0
 	window.answer_time = false
 
 	# 5秒に一回サーバーにアクセスして、イベントが更新されているかを見る
