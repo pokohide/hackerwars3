@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  require 'csv'
   # event_idにcard_idを登録する
   def pushed
   	event = Event.find_by(id: params[:id])
@@ -8,9 +9,9 @@ class EventsController < ApplicationController
   	if Time.now < event.created_at + 3.minutes
   		card.event_id = event.id
   		card.save
-  		render text: "ok"
+  		render json: {response: 'ok', id: event.id}.to_json
   	else
-  		render text: "ng"
+  		render json: {response: 'ng'}.to_json
   	end
   end
 
@@ -28,6 +29,17 @@ class EventsController < ApplicationController
   		trend = event.try(:trend_word)
   		data = {id: now_id, trend: trend, number: count}
   		render json: data.to_json
+  	end
+  end
+
+  # pushedしたevent_idのfisnishedがtrueかを判定。trueになったら返す
+  def polled_result
+  	event = Event.find(params[:id])
+  	card = Card.find(params[:card_id])
+  	if event.finished 	# trueだったら、その順位と他の結果を表示する
+  		result = event.result
+  	else
+  		render 
   	end
   end
 

@@ -95,6 +95,9 @@ $('.users.show').ready ->
 				alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
+				if data.response == 'ok'
+					window.post_event_id = event_id
+					window.post_card_id = card_id
 		)
 		$("#loading").fadeOut(1000)
 
@@ -134,6 +137,31 @@ $('.users.show').ready ->
 
 	$(document).on 'click', '#close_event', ->
 		dismiss_event()
+
+	# イベントに登録した時に呼び出される。登録時にそのイベントの集計結果を待つpolling_timeを設定
+	create_polling_time = ->
+		window.waiting_for_result = true
+		result_timer = setInterval ->
+			clearInterval(result_timer) unless window.waiting_for_result
+			polling_result(window.post_event_id, window.post_card_id)
+		, 5000
+
+	# 集計結果を監視するポーリング
+	polling_result = (event_id, card_id) ->
+		$.ajax(
+			url: "push_event/#{event_id}/with/#{card_id}"
+			async: true
+			type: 'GET'
+			dataType: 'json'
+			error: (jqXHR, textStatus, errorThrown) ->
+				alert 'ポーリングに失敗しました。'
+			success: (data, textStatus, jqXHR) ->
+				console.log data
+				return if window.tweet_id == data.id
+				window.tweet_id = data.id
+				for tweet, index in data.response
+					insert_tweet(tweet, index)
+		)
 
 	# tweetをapiを叩いて読み込む
 	fetch_tweet = ->
@@ -180,7 +208,6 @@ $('.users.show').ready ->
 		# event_idでアクセスしている。
 		polling_recent_event(window.event_id)
 	, 5000
-
 
 	# リストのカードをクリックすると選択する
 	$('.users.show .your_cards li').on 'click', ->

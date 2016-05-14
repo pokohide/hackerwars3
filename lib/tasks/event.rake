@@ -4,27 +4,21 @@ namespace :event do
         trend_word = get_a_trend || 'google'
 
         # trend_wordでTweetを検索し、DBに登録
-        client = get_twitter_client
-        query = trend_word
-        puts query
-        result_tweets = client.search(query, count: 15, locale: "ja", result_type: "recent",  exclude: "retweets")
-        result_tweets.each_with_index do |tw, i|
-          # puts "#{i}: #{tw.id}: @#{tw.user.screen_name}: #{tw.full_text}"
-          tweet = Tweet.new({tweet_id: tw.id, name: tw.user.name, screen_name: tw.user.screen_name, full_text: tw.full_text})
-          tweet.save
-        end
-
+        # client = get_twitter_client
+        # query = trend_word
+        # puts query
+        # result_tweets = client.search(query, count: 15, locale: "ja", result_type: "recent",  exclude: "retweets")
+        # result_tweets.each_with_index do |tw, i|
+        #   # puts "#{i}: #{tw.id}: @#{tw.user.screen_name}: #{tw.full_text}"
+        #   tweet = Tweet.new({tweet_id: tw.id, name: tw.user.name, screen_name: tw.user.screen_name, full_text: tw.full_text})
+        #   tweet.save
+        # end
 
         event = Event.new
         event.trend_word = trend_word
         event.start_time = Time.zone.now
         event.end_time = event.start_time + 3.minutes
         event.save
-    end
-
-    task now: :environment do
-        puts Time.now
-        puts Time.zone.now
     end
 
     desc "答えの集計 #=> イベントのトレンドとその答えにきたユーザ名との相関が一番大きい順にソート"
