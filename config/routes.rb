@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'events/pushed'
-
-  get 'events/pulled'
-
   devise_for :users, path_names: { sign_in: "login", sign_out: "logout"},
     controllers: { omniauth_callbacks: "omniauth_callbacks" }
 
@@ -16,8 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'poll_event/:id' => 'event#polled'
-  post 'push_event/:id/with/:card_id' => 'event#pushed'
+  get 'poll_event/:id' => 'events#polled'
+  post 'push_event/:id/with/:card_id' => 'events#pushed'
 
   # TwitterStreamingAPI
   namespace 'api', :module => 'api' do

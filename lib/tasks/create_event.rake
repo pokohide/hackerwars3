@@ -1,11 +1,13 @@
 namespace :event do
     desc "毎分実施。クロールしてトレンドがあれば問題を生成する"
     task create: :environment do
-        trend_word = get_trend
+        trend_word = get_trend || 'google'
 
         event = Event.new
         event.trend_word = trend_word
-        
+        event.start_time = Time.now
+        event.end_time = Time.now + 3.minutes
+        event.save
     end
 
     desc "答えの集計 #=> イベントのトレンドとその答えにきたユーザ名との相関が一番大きい順にソート"

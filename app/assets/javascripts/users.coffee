@@ -70,6 +70,24 @@ $('.users.show').ready ->
 	# ajaxで最新イベントがあるかをポーリングする
 	polling_recent_event = (event_id) ->
 		$.ajax(
-			
-
+			url: "/poll_event/#{event_id}"
+			async: true
+			type: 'GET'
+			error: (jqXHR, textStatus, errorThrown) ->
+				alert '登録に失敗しました。'
+			success: (data, textStatus, jqXHR) ->
+				console.log data
 		)
+
+	push_event_with_id = (event_id, card_id) ->
+		$.ajax(
+			url: "/push_event/#{event_id}/with/#{card_id}"
+			async: true
+			type: 'POST'
+			error: (jqXHR, textStatus, errorThrown) ->
+				alert '登録に失敗しました。'
+			success: (data, textStatus, jqXHR) ->
+				console.log data
+		)
+
+	polling_recent_event(0)
