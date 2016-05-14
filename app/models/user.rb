@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
 
   has_many :cards
-
   #登録時にemailを不要とする
   def email_required?
     false
