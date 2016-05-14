@@ -1,8 +1,15 @@
 .cards_field
   .row
 	- @cards.each do |card|
-  	  .col-sm-3.col-md-2#card style="margin-bottom:15px;"
+  	  .col-sm-3.col-md-2.card_field#card style="margin-bottom:15px;"
   	  	.thumbnail style="margin-bottom:0px;"
   	  	  = card_thumbnail card.profile_image_url, style: 'width: 100%'
   	    .caption.text-center
     	  b = card.name
+
+.panel.panel-default style='min-height:130px;position:relative;padding:10px 0'
+  ul.have_cards
+
+  .right_area
+  	#card_count
+  	a.btn.btn-success#push_cards href='#' 追加する

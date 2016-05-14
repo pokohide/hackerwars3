@@ -1,0 +1,56 @@
+// Place all the styles related to the user controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.users.get_cards {
+	.cards_field {
+		width: 80%;
+		min-height: 500px;
+		margin: 0 auto;
+		margin-top: 30px;
+		.card_field {
+			.thumbnail {
+				margin-bottom: 0;
+			}
+			h6 {
+				text-align: center;
+			}
+			&:hover {
+				cursor: pointer;
+				opacity: .8;
+				background: #ddd;
+				.thumbnail {
+
+				}
+			}
+		}
+	}
+	.panel {
+		ul.have_cards {
+			list-style: none;
+			display: inline;
+			li {
+				display: inline-block;
+				width: 100px;
+				.thumbnail {
+					width: 100px;
+				}
+			}
+			margin-right: 50px;
+		}
+		.right_area {
+			position: absolute;
+			right: 20px;
+			top: 20px;
+			#card_count {
+				font-size: 25px;
+				font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
+				font-weight: light;
+				text-align: center;
+			}
+			#push_cards {
+				bottom: 0px;
+			}		
+		}
+	}
+}
