@@ -1,42 +1,54 @@
-namespace :recommend do
-    desc "週に一回実行。ユーザの視聴履歴からオススメを算出する"
-    task update: :environment do
-        ids = Evideo.pluck(:id)
-        max = ids.size
-
-        for i in 0...max
-            for j in (i+1)...max
-                #puts "#{i}:#{j}"
-                i_id = ids[i]
-                j_id = ids[j]
-
-                # ジャッカー度指数を計算
-                join = (REDIS.sunion "e#{i_id}", "e#{j_id}").size
-                intersect = (REDIS.sinter "e#{i_id}", "e#{j_id}").size
-                if (join == 0 || intersect == 0)
-                    next
-                end
-
-                jaccard = intersect / join
-                if jaccard == 0
-                    next
-                end
-                REDIS.zadd "Jaccard:Evideo#{i_id}", jaccard, "#{j_id}"
-                REDIS.zadd "Jaccard:Evideo#{j_id}", jaccard, "#{i_id}"
-            end
-        end
-
-    end
-end
-
 namespace :event do
     desc "毎分実施。クロールしてトレンドがあれば問題を生成する"
     task create: :environment do
 
     end
 
-    desc "答えの集計"
+    desc "答えの集計 #=> イベントのトレンドとその答えにきたユーザ名との相関が一番大きい順にソート"
     task aggregate: :environment do
+        Event.where(finished: false).all.each do |event|
+            w1 = event.trend_word
+            result = []
+            event.cards.each do |card|
+                association = associate w1, card.name
+                result << [association, card.id]
+            end
+            result.sort_by { |arr| arr[0] }
+            
+            "".tap do |str|
+                result.each_with_index do |res, ind|
+                    if ind == 0
+                        str += "#{ind+1}:#{res[0]}:#{res[1]}"
+                    else
+                        str += ",#{ind+1}:#{res[0]}:#{res[1]}"
+                    end
+                    # 順位:相関度:カード番号
+                end
+                event.result = str
+            end
+            event.finished = true
+            event.save
+        end
+    end
 
+    private
+    # トレンドのキーワードを取得
+    def get_trend
+
+    end
+
+    # w1とw2の関連度を数値で返す
+    def associate w1, w2
+        require 'nokogiri'
+        require 'open-uri'
+        require 'cgi'
+
+        key = "#{w1} #{w2}"
+        escaped_key = CGI.escape(key)
+
+        doc = Nokogiri.HTML( open("http://www.google.co.jp/search?ie=UTF-8&oe=UTF-8&q=#{escaped_key}") )
+        str_of_number = doc.css('#resultStats').text
+        number = str_of_number.delete!("約 ").delete!("件").delete!(",")
+        return number.to_i
     end
 end
