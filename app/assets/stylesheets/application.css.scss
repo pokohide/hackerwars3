@@ -10,11 +10,11 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require bootstrap
  *= require bootstrap_and_overrides
  *= require bootstrap-material-design
  *= require_self
+ *= require_tree .
  */
 
 @font-face {
@@ -33,7 +33,7 @@ body {
     margin: 0;
     margin-top: 50px;
     position: relative;
-    height: 800px;
+    min-height: 700px;
     .container-fluid {
         padding: 0px 20px;
     }

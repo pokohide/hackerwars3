@@ -15,16 +15,6 @@ head
         header
           == render 'templates/header'
           == yield :header
-      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10 style="min-height: 800px;"
+      .col-sm-12.col-md-12.col-lg-12 style="min-height:550px;height:auto;position:relative"
         = alert_or_notice alert, notice
-        .continer-fluid
-          .row
-            .col-sm-12.col-md-8.col-lg-9
-              article.main
-                == yield
-            .col-sm-12.col-md-4.col-lg-3
-              article.sidebar
-                == yield :sidebar
-      .col-sm-12.col-md-12
-        footer
-          == render 'templates/footer'
+        == yield
