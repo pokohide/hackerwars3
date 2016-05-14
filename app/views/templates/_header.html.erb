@@ -1,0 +1,68 @@
+nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigation"
+  .container-fluid style="padding: 0 10%"
+    .navbar-header
+      button.navbar-toggle type="button" data-toggle="collapse" data-target="#navbar"
+        span.sr-only
+          | Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to root_path, class: 'navbar-brand' do
+        = image_tag "logo.png"
+
+    #navbar.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        li
+          = link_to '#', id: "intro_btn", class: "hidden-xs" do
+            = image_tag "info.png"
+        li
+          = link_to new_evideo_path, class: 'new_evideo' do
+            i.glyphicon.glyphicon-plus
+            |  動画投稿
+
+        - if user_signed_in?
+          li.dropdown
+            a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+              = thumbnail current_user.thumb(:thumb)
+              span.username
+                = current_user.username
+
+            ul.dropdown-menu
+              li
+                h5.text-center style="color: #333;margin:0"
+                  span style="font-size: 20px; font-weight: bold;"
+                    = current_user.status.level
+                  b Lv.
+                .progress
+                  .progress-bar role="progressbar" aria-valuenow="#{@user_score}" aria-valuemin="0" aria-valuemax="100" style="width: #{@user_score}%"
+                    span #{@user_score}%
+              li
+                = link_to user_path(current_user.id) do
+                  i.glyphicon.glyphicon-user
+                  |  マイページ 
+              li
+                = link_to edit_user_registration_path do
+                  i.glyphicon.glyphicon-cog
+                  |  プロフィール変更
+              li
+                = link_to destroy_user_session_path, method: :delete do
+                  i.glyphicon.glyphicon-off
+                  |  ログアウト
+        - else
+          li
+            a href="/users/login"
+              i.glyphicon.glyphicon-user
+              |  サインアップ   
+          li.dropdown
+            a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+              i.glyphicon.glyphicon-log-in
+              |  ログイン 
+            ul.dropdown-menu.login
+              li
+                = link_to user_omniauth_authorize_path(:twitter), class: 'TwBtn' do
+                  i.fa.fa-twitter.fa-2x
+                  | でログイン 
+              li
+                = link_to user_omniauth_authorize_path(:facebook), class: 'FbBtn' do
+                  i.fa.fa-facebook.fa-2x
+                  | でログイン 
