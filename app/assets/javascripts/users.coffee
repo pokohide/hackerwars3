@@ -77,6 +77,9 @@ $('.users.show').ready ->
 				alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
+				if data.id != window.event_id
+					window.event_id = data.id
+					console.log window.event_id
 		)
 
 	push_event_with_id = (event_id, card_id) ->
@@ -90,4 +93,35 @@ $('.users.show').ready ->
 				console.log data
 		)
 
-	polling_recent_event(0)
+	# トレンドがtrendのイベントをポップアップする。時間も表示する。
+	create_event = (trend) ->
+		$event_board = $("<div class='jumbotron event_board'></div>")
+
+		html = """
+  <button type="button" class="close" id="close_event" data-dismiss="modal" aria-hidden="true">×</button>
+  <h1>#{trend}</h1>
+
+  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+
+  <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+
+		"""
+		$event_board.html(html)
+		$event_board.appendTo( $('body') ).fadeIn(500)
+
+
+	# このevent_idを更新していく。
+	#window.event_id = gon.event_id
+	window.event_id = 0
+
+	create_event('koskaosmao')
+	
+
+	# 5秒に一回サーバーにアクセスして、イベントが更新されているかを見る
+	timer = setInterval ->
+		clearInterval(timer) if false
+
+		# event_idでアクセスしている。
+		polling_recent_event(window.event_id)
+
+	, 5000

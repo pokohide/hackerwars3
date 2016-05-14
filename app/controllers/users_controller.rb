@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   	end
   	@user = User.find(params[:id])
   	@cards = @user.cards
+  	gon.event_id = Event.last.try(:id) || 0
   	#@trend = google_trend('google','apple','yahoo','uber')
   	#@cards = current_user.cards.pluck(:id, :name, :screen_name, :tweets_count, :followers_count, :profile_image_url)
   end
