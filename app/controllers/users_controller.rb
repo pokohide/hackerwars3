@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def get_cards
   	gon.user_id = current_user.id
-  	@cards = Card.group(:profile_image_url).all
+  	@cards = Card.group(['profile_image_url']).all
   end
 
   def post_cards
