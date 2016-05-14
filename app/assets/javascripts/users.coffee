@@ -126,6 +126,10 @@ $('.users.show').ready ->
 		$event.html(html)
 		$event.prependTo( $('ul.events') ).fadeIn(500)
 
+	display_result = (ranking) ->
+		## SweetAlertを出して、順位とランキングを表示。左上のイベントにも追加する。
+		## あなたは何位でした。まるまるのカードは失いました。
+
 	# イベントIDと参加者
 	refresh_event = (id, number) ->
 		$(".events li.event-#{id}").find("参加人数は#{number}人です")
@@ -149,7 +153,7 @@ $('.users.show').ready ->
 	# 集計結果を監視するポーリング
 	polling_result = (event_id, card_id) ->
 		$.ajax(
-			url: "push_event/#{event_id}/with/#{card_id}"
+			url: "/poll_result/#{event_id}/with/#{card_id}"
 			async: true
 			type: 'GET'
 			dataType: 'json'
@@ -157,11 +161,11 @@ $('.users.show').ready ->
 				alert 'ポーリングに失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
-				return if window.tweet_id == data.id
-				window.tweet_id = data.id
-				for tweet, index in data.response
-					insert_tweet(tweet, index)
+				return if data.response == 'ng'
+				window.waiting_for_result = false
+				display_result(data.ranking)
 		)
+	polling_result(14, 181)
 
 	# tweetをapiを叩いて読み込む
 	fetch_tweet = ->
