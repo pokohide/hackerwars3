@@ -1,13 +1,18 @@
 namespace :event do
     desc "毎分実施。クロールしてトレンドがあれば問題を生成する"
     task create: :environment do
-        trend_word = get_trend || 'google'
+        trend_word = get_a_trend || 'google'
 
         event = Event.new
         event.trend_word = trend_word
-        event.start_time = Time.now
-        event.end_time = Time.now + 3.minutes
+        event.start_time = Time.zone.now
+        event.end_time = event.start_time + 3.minutes
         event.save
+    end
+
+    task now: :environment do
+        puts Time.now
+        puts Time.zone.now
     end
 
     desc "答えの集計 #=> イベントのトレンドとその答えにきたユーザ名との相関が一番大きい順にソート"
@@ -39,8 +44,19 @@ namespace :event do
 
     private
     # トレンドのキーワードを取得
-    def get_trend
+    def get_a_trend
+        require "open-uri"
+        return get_trends[rand(10)]
+    end
 
+    def get_trends
+        trends = []
+        # 検索結果を開く
+        doc = Nokogiri.HTML(open("http://www.google.co.jp/trends/hottrends/atom/hourly"))
+        doc.css('a').each do |anchor|
+            trends.push(anchor.inner_text)
+        end
+        return trends    
     end
 
     # w1とw2の関連度を数値で返す

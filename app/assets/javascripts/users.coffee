@@ -145,6 +145,7 @@ $('.users.show').ready ->
 		if $('.your_cards li.checked').size == 0
 			alert 'カードを選択してください。'
 
+		card_id = parseInt $('.your_cards li.checked').attr('data-id'), 10
 		# 選択したカードをイベントに登録する
 		push_event_with_id(window.event_id, card_id)
 		dismiss_event()

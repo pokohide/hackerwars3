@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   	card = Card.find_by(id: params[:card_id])
 
   	# イベントの時間内なら登録する。時間外なら何も返さない
-  	if Time.now < event.end_time
+  	if Time.now < event.created_at + 3.minutes
   		card.event_id = event.id
   		card.save
   		render text: "ok"
