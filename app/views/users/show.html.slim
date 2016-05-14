@@ -1,18 +1,16 @@
 .countatiner-fluid style='margin-top:40px'
   .row
   	.col-sm-12.col-md-6 style="padding-right:10px;"
-  	  .space1.space
-  	  	p aaa
+  	  .space.event_info
+  	  	= render 'templates/event_info'
   	  .space.user_info
-         = render 'templates/user_info', locals: { user: @user }
+        = render 'templates/user_info', locals: { user: @user }
     .col-sm-12.col-md-6 style="padding-left:10px;"
       .space3.space
       	/iframe
       	  /= @trend
-      .space4.space
-        .row
-          .col-md-12
-            .bs-component
+      .space.tl
+      	= render 'templates/tl'
 
 .panel.panel-default style='min-height:196px;position:fixed;bottom:0px;width:80%;padding-bottom:10px;border:3px solid #333;left:10%;z-index:100;margin-bottom:0px;'
   .panel-heading style='margin-bottom:5px;'

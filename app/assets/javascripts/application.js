@@ -23,9 +23,11 @@ $(function(){
         threshold: 1,
         effect: "fadeIn"
     });
+
     $("body").bind("ajaxSend", function(c,xhr){
 		$( window ).bind( 'beforeunload', function() {
 			xhr.abort();
 		})
 	});
+	
 });

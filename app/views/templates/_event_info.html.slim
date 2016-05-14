@@ -1,0 +1,10 @@
+ul.events style="padding:0"
+  - @recent_events.each do |event|
+    li class="event-#{event.id}"
+      .well.well-sm
+      	h5 
+      	  | トレンドは
+      	  b = event.trend_word
+      	  | です。
+      	h6.time = (event.created_at + 3.minutes).strftime('%y/%m/%d %H:%M:%S')
+      	p 参加人数は#{event.try(:cards).try(:count) || 0}人です

@@ -1,2 +1,14 @@
-h1 User#index
-p Find me in app/views/user/index.html.slim
+table.table.table-striped.table-hover
+  thead
+  	tr
+  	  th ユーザID
+  	  th サムネイル画像
+  	  th ユーザ名
+  	  th スコア
+  tbody
+    - @users.each do |user|
+      tr
+ 		td = user.id
+ 		td = thumbnail user.thumbnail
+ 		td = user.username
+ 		td #{user.score} score

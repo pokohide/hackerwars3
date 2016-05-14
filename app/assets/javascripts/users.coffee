@@ -4,7 +4,7 @@
 
 $('.users.get_cards').ready ->
 	card_num = 0
-	max_num = 8
+	max_num = 5
 	card_ids = []
 	card_srcs = []
 
@@ -66,36 +66,6 @@ $('.users.get_cards').ready ->
 
 
 $('.users.show').ready ->
-  trend_tweet_feed = ->
-    $.ajax(
-      url: "/api/tweet"
-      async: true
-      type: 'GET'
-      dataType: 'json',
-      success: (response) ->
-        for tweet in response
-          console.log tweet
-          $tweet_board = $("<div class='bs-component'></div>")
-          html = """
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                <h3 class="panel-title"></h3>
-                #{tweet.name} @#{tweet.screen_name}
-              </div>
-              <div class="panel-body">
-                #{tweet.full_text}
-              </div>
-            </div>
-          """
-          $tweet_board.html(html)
-          $tweet_board.appendTo($('div.bs-component'))
-
-      error: (req, err) ->
-        console.log err
-    )
-
-  trend_tweet_feed()
-
 	# ajaxで最新イベントがあるかをポーリングする
 	polling_recent_event = (event_id) ->
 		$.ajax(
@@ -106,10 +76,13 @@ $('.users.show').ready ->
 				alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
+
 				if data.id != window.event_id && $('body').hasClass('show')
 					window.event_id = data.id
 					window.answer_time = true
-					display_event(data.trend)
+					display_event(data.trend, data.id, data.number)
+				else
+					refresh_event(data.id, data.number)
 		)
 
 	push_event_with_id = (event_id, card_id) ->
@@ -126,7 +99,7 @@ $('.users.show').ready ->
 		$("#loading").fadeOut(1000)
 
 	# トレンドがtrendのイベントをポップアップする。時間も表示する。
-	display_event = (trend) ->
+	display_event = (trend, id, num) ->
 		$event_board = $("<div class='jumbotron event_board'></div>")
 
 		html = """
@@ -140,13 +113,60 @@ $('.users.show').ready ->
 		$event_board.html(html)
 		$event_board.appendTo( $('body') ).fadeIn(500)
 
+		$event = $("<li class='event-#{id}'></li>")
+		html = """
+			<div class="well well-sm">
+				<h5>トレンドは<b>#{trend}</b>です。</h5>
+				<p>参加人数は#{num}人です。</p>
+			</div>
+		"""
+		$event.html(html)
+		$event.prependTo( $('ul.events') ).fadeIn(500)
+
+	# イベントIDと参加者
+	refresh_event = (id, number) ->
+		$(".events li.event-#{id}").find("参加人数は#{number}人です")
+
 	dismiss_event = ->
 		$('.event_board').hide()
 		window.answer_time = false
 
+
 	$(document).on 'click', '#close_event', ->
 		dismiss_event()
 
+	# tweetをapiを叩いて読み込む
+	fetch_tweet = ->
+		$.ajax(
+			url: '/api/tweet'
+			async: true
+			type: 'GET'
+			dataType: 'json'
+			error: (jqXHR, textStatus, errorThrown) ->
+				alert '登録に失敗しました。'
+			success: (data, textStatus, jqXHR) ->
+				console.log data
+				for tweet, index in data
+					insert_tweet(tweet, index)
+				#fetch_tweet()
+		)
+	fetch_tweet()
+
+	insert_tweet = (tweet, index) ->
+		$tweet = $("<li class='tweet' style='margin-bottom:4px;'></li>")
+		html = """
+		<div class="well well-sm">
+			<p><b class="name">#{tweet.name}</b> @ #{tweet.screen_name}</p>
+			<div class="text">
+				#{tweet.full_text}
+			</div>
+		</div>
+		"""
+		$tweet.html(html)
+		$tweet.hide()
+		setTimeout ->
+			$tweet.prependTo( $('ul.tweets') ).fadeIn(500)
+		, 500 * index
 
 	# このevent_idを更新していく。
 	window.event_id = gon.event_id
@@ -173,6 +193,7 @@ $('.users.show').ready ->
 			return
 		if $('.your_cards li.checked').size == 0
 			alert 'カードを選択してください。'
+			return
 
 		card_id = parseInt $('.your_cards li.checked').attr('data-id'), 10
 		# 選択したカードをイベントに登録する

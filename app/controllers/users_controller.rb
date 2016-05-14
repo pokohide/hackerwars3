@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :get_cards]
   def index
+  	@users = User.all
   end
 
   def show
@@ -11,6 +12,8 @@ class UsersController < ApplicationController
   	@user = current_user || User.find_by(id: params[:id])
   	@cards = @user.cards
   	gon.event_id = Event.last.try(:id) || 0
+
+  	@recent_events = Event.order('id desc').limit(4)
   	#@trend = google_trend('google','apple','yahoo','uber')
   	#@cards = current_user.cards.pluck(:id, :name, :screen_name, :tweets_count, :followers_count, :profile_image_url)
   end
@@ -28,6 +31,8 @@ class UsersController < ApplicationController
   		card.update(user_id: @user.id)
   		card.save
   	end
+  	@user.score += 10
+  	@user.save
   	render nothing: true
   end
 
