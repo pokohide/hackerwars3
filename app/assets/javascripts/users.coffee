@@ -77,7 +77,7 @@ $('.users.show').ready ->
 				alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
-				if data.id != window.event_id
+				if data.id != window.event_id && $('body').hasClass('show')
 					window.event_id = data.id
 					window.answer_time = true
 					display_event(data.trend)
@@ -125,19 +125,19 @@ $('.users.show').ready ->
 
 	# 5秒に一回サーバーにアクセスして、イベントが更新されているかを見る
 	timer = setInterval ->
-		clearInterval(timer) if false
+		clearInterval(timer) if false || !$('body').hasClass('show')
 		# event_idでアクセスしている。
 		polling_recent_event(window.event_id)
 	, 5000
 
 
 	# リストのカードをクリックすると選択する
-	$('.your_cards li').on 'click', ->
+	$('.users.show .your_cards li').on 'click', ->
 		$('.your_cards li.checked').removeClass('checked')
 		$(this).addClass('checked')
 
 
-	$('.use_this_card').on 'click', (e) ->
+	$('.users.show .use_this_card').on 'click', (e) ->
 		e.preventDefault()
 		unless window.answer_time
 			alert 'まだトレンドは発表されていません。'
