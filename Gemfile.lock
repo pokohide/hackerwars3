@@ -296,6 +296,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   material_icons
+  nokogiri
   omniauth-twitter
   pg
   pry

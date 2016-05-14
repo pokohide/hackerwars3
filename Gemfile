@@ -40,8 +40,11 @@ gem 'rake'        # => rakeタスクを定期実行して勉強ログを取る
 gem 'jbuilder', '~> 2.0'
 gem 'yajl-ruby' # for jbuilder. faster background
 
-#for TwitterStreamingAPI
+#for TwitterAPI
 gem 'twitter'
+
+#for TrendAPI
+gem 'nokogiri'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
