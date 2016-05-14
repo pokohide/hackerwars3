@@ -42,6 +42,7 @@ gem 'yajl-ruby' # for jbuilder. faster background
 
 #for TwitterStreamingAPI
 gem 'tweetstream'
+gem 'twitter'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
