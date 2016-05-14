@@ -37,8 +37,11 @@ Devise.setup do |config|
   # config.authentication_keys = [:email]
   config.authentication_keys = [ :username ]
 
-  config.omniauth :twitter, "8XDFefeCi9JKqW0nnJkJxV62c", "ExyBu6FMWyp49xHwZFqXeUMcepDXND6dKHl16mdKoz2qnqK5Cz"
-
+  if Rails.env.production?
+    config.omniauth :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
+  else
+    config.omniauth :twitter, "8XDFefeCi9JKqW0nnJkJxV62c", "ExyBu6FMWyp49xHwZFqXeUMcepDXND6dKHl16mdKoz2qnqK5Cz"
+  end
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
   # find_for_authentication method and considered in your model lookup. For instance,
