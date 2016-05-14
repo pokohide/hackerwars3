@@ -35,3 +35,31 @@ $('.users.get_cards').ready ->
 		$li.html(html)
 		$li.appendTo( $('ul.have_cards') ).fadeIn(500)
 
+	$('#push_cards').on 'click', (e) ->
+		e.preventDefault()
+		push_cards card_ids if card_ids.length > 0
+
+	push_cards = (ids) ->
+		$("#loading").show()
+		push_ids = ""
+		for id,index in ids
+			if index == 0
+				push_ids += "#{id}"
+			else
+				push_ids += ",#{id}"
+
+		console.log push_ids
+
+		$.ajax(
+			url: "/users/#{gon.user_id}/post_cards"
+			async: true
+			type: 'POST'
+			data:
+				ids: push_ids
+			error: (jqXHR, textStatus, errorThrown) ->
+				console.log errorThrown
+				alert '登録に失敗しました。'
+			success: (data, textStatus, jqXHR) ->
+				window.location.href = "/users/#{gon.user_id}"
+		)
+		$("#loading").fadeOut(1000)

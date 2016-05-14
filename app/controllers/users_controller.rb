@@ -12,6 +12,19 @@ class UsersController < ApplicationController
   end
 
   def get_cards
+  	gon.user_id = current_user.id
   	@cards = Card.all
+  end
+
+  def post_cards
+  	require 'csv'
+  	@user = User.find(params[:id])
+  	@card_ids = params[:ids]
+  	@card_ids.parse_csv do |id|
+  		evideo = Evideo.find(id)
+  		evideo.user_id = @user.id
+  		evideo.save
+  	end
+  	render nothing: true
   end
 end
