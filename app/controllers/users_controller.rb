@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   	end
   	@user = User.find(params[:id])
   	@cards = @user.cards
+  	@trend = google_trend('google','apple','yahoo','uber')
   	#@cards = current_user.cards.pluck(:id, :name, :screen_name, :tweets_count, :followers_count, :profile_image_url)
   end
 
@@ -30,4 +31,15 @@ class UsersController < ApplicationController
   	end
   	render nothing: true
   end
+
+  	private
+  	require "nokogiri"
+	require "open-uri"
+	require "cgi"
+  	# w1, w2, w3, w4に関するトレンドの推移
+  	def google_trend(w1, w2, w3, w4)
+		# 検索結果を開く
+  		doc = Nokogiri.HTML(open("http://www.google.com/trends/fetchComponent?hl=ja-JP&q=#{w1},#{w2},#{w3},#{w4}&cid=TIMESERIES_GRAPH_0&export=5&w=250&h=300"))
+  		return doc
+  	end
 end

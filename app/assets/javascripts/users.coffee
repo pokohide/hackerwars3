@@ -63,3 +63,13 @@ $('.users.get_cards').ready ->
 				window.location.href = "/users/#{gon.user_id}"
 		)
 		$("#loading").fadeOut(1000)
+
+
+$('.users.show').ready ->
+
+	# ajaxで最新イベントがあるかをポーリングする
+	polling_recent_event = (event_id) ->
+		$.ajax(
+			
+
+		)
