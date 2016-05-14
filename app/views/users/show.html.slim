@@ -22,7 +22,7 @@
   		.thumbnail style='margin-bottom:0'
   		  = card_thumbnail card.profile_image_url, style: 'width: 100%'
  		.caption.text-center
- 		  b = card.name
+ 		  b = truncate card.name, length: 9
 
   .right_area
   	#card_stlength

@@ -24,7 +24,6 @@ class UsersController < ApplicationController
   	require 'csv'
   	@user = User.find(params[:id])
   	params[:ids].parse_csv.each do |card_id|
-  		logger.debug card_id
   		card = Card.find(card_id.to_i)
   		card.update(user_id: @user.id)
   		card.save
