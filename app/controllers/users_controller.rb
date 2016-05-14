@@ -20,10 +20,10 @@ class UsersController < ApplicationController
   	require 'csv'
   	@user = User.find(params[:id])
   	@card_ids = params[:ids]
-  	@card_ids.parse_csv do |id|
-  		evideo = Evideo.find(id)
-  		evideo.user_id = @user.id
-  		evideo.save
+  	@card_ids.parse_csv do |card_id|
+  		card = Card.find_by(card_id)
+  		card.user_id = @user.id
+  		card.save
   	end
   	render nothing: true
   end
