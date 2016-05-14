@@ -3,6 +3,18 @@ namespace :event do
     task create: :environment do
         trend_word = get_a_trend || 'google'
 
+        # trend_wordでTweetを検索し、DBに登録
+        client = get_twitter_client
+        query = trend_word
+        puts query
+        result_tweets = client.search(query, count: 15, locale: "ja", result_type: "recent",  exclude: "retweets")
+        result_tweets.each_with_index do |tw, i|
+          # puts "#{i}: #{tw.id}: @#{tw.user.screen_name}: #{tw.full_text}"
+          tweet = Tweet.new({tweet_id: tw.id, name: tw.user.name, screen_name: tw.user.screen_name, full_text: tw.full_text})
+          tweet.save
+        end
+
+
         event = Event.new
         event.trend_word = trend_word
         event.start_time = Time.zone.now
@@ -43,6 +55,17 @@ namespace :event do
     end
 
     private
+    # TwitterAPI
+    def get_twitter_client
+      client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = '8XDFefeCi9JKqW0nnJkJxV62c'
+        config.consumer_secret     = 'ExyBu6FMWyp49xHwZFqXeUMcepDXND6dKHl16mdKoz2qnqK5Cz'
+        config.access_token        = '3976234632-0kxLLEDxJKgDtyVjfVnETNQmjb53Pa4GlG7DUq0'
+        config.access_token_secret = 'QQxoHgLhIpDjoo2ntckMR6KiHc9f6WITVtyCjD212rCxQ'
+       end
+      client
+    end
+
     # トレンドのキーワードを取得
     def get_a_trend
         require "open-uri"
@@ -56,7 +79,7 @@ namespace :event do
         doc.css('a').each do |anchor|
             trends.push(anchor.inner_text)
         end
-        return trends    
+        return trends
     end
 
     # w1とw2の関連度を数値で返す
