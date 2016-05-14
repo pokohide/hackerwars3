@@ -77,10 +77,13 @@ $('.users.show').ready ->
 				alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
+
 				if data.id != window.event_id && $('body').hasClass('show')
 					window.event_id = data.id
 					window.answer_time = true
-					display_event(data.trend)
+					display_event(data.trend, data.id, data.number)
+				else
+					refresh_event(data.id, data.number)
 		)
 
 	push_event_with_id = (event_id, card_id) ->
@@ -97,7 +100,7 @@ $('.users.show').ready ->
 		$("#loading").fadeOut(1000)
 
 	# トレンドがtrendのイベントをポップアップする。時間も表示する。
-	display_event = (trend) ->
+	display_event = (trend, id, num) ->
 		$event_board = $("<div class='jumbotron event_board'></div>")
 
 		html = """
@@ -111,9 +114,24 @@ $('.users.show').ready ->
 		$event_board.html(html)
 		$event_board.appendTo( $('body') ).fadeIn(500)
 
+		$event = $("<li class='event-#{id}'></li>")
+		html = """
+			<div class="well well-sm">
+				<h5>トレンドは<b>#{trend}</b>です。</h5>
+				<p>参加人数は#{num}人です。</p>
+			</div>
+		"""
+		$event.html(html)
+		$event.prependTo( $('ul.events') ).fadeIn(500)
+
+	# イベントIDと参加者
+	refresh_event = (id, number) ->
+		$(".events li.event-#{id}").find("参加人数は#{number}人です")
+
 	dismiss_event = ->
 		$('.event_board').hide()
 		window.answer_time = false
+
 
 	$(document).on 'click', '#close_event', ->
 		dismiss_event()

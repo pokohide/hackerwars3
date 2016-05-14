@@ -60,6 +60,7 @@
 		background: #e5e5e5;
 		padding: 5px;
 		border-radius: 3px;
+		overflow: scroll;
 	}
     /* ユーザ情報 */
     .user_info {
@@ -95,6 +96,25 @@
                 line-height: 50px;
             }
         }
+    }
+    /* イベント情報 */
+    .event_info {
+    	.events {
+    		li {
+    			position: relative;
+    			.time {
+    				position: absolute;
+    				right: 3px;
+    				top: 0px;
+    				font-size: 16px;
+    			}
+    			h5 {
+    				b {
+    					font-size: 18px;
+    				}
+    			}
+    		}
+    	}
     }
 }
 

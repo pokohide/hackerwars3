@@ -1,10 +1,10 @@
 .countatiner-fluid style='margin-top:40px'
   .row
   	.col-sm-12.col-md-6 style="padding-right:10px;"
-  	  .space1.space
-  	  	p aaa
+  	  .space.event_info
+  	  	= render 'templates/event_info'
   	  .space.user_info
-         = render 'templates/user_info', locals: { user: @user }
+        = render 'templates/user_info', locals: { user: @user }
     .col-sm-12.col-md-6 style="padding-left:10px;"
       .space3.space
       	/iframe

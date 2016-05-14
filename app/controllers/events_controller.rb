@@ -17,15 +17,16 @@ class EventsController < ApplicationController
   def polled # event_idにアクセスする
   	ex_id = params[:id]
   	now_id = Event.last.try(:id) || ex_id
+  	event = Event.find_by(id: now_id)
+  	count = event.try(:cards).try(:count) || 0
 
   	# もし送られてきたex_idとnow_idが一緒なら新しいイベントは作られていない。
   	if ex_id == now_id
-  		data = {id: now_id}
+  		data = {id: now_id, number: count}
   		render json: data.to_json
   	else
-  		event = Event.find_by(id: now_id)
-  		trend = event.trend_word
-  		data = {id: now_id, trend: trend}
+  		trend = event.try(:trend_word)
+  		data = {id: now_id, trend: trend, number: count}
   		render json: data.to_json
   	end
   end
