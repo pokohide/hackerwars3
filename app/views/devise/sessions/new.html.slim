@@ -1,0 +1,9 @@
+.container-fluid
+  .col-xs-12.col-sm-offset-2.col-sm-8
+  h2 ログイン
+
+  = image_tag 'big-logo.png'
+
+  = link_to user_omniauth_authorize_path(:twitter), class: 'well fb' do
+    i.fa.fa-twitter.fa-2x
+    |  でログイン
