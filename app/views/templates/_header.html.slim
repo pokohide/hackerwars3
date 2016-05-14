@@ -46,10 +46,6 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
                   i.glyphicon.glyphicon-off
                   |  ログアウト
         - else
-          li
-            a href="/users/login"
-              i.glyphicon.glyphicon-user
-              |  サインアップ   
           li.dropdown
             a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
               i.glyphicon.glyphicon-log-in
@@ -58,4 +54,4 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
               li
                 = link_to user_omniauth_authorize_path(:twitter), class: 'TwBtn' do
                   i.fa.fa-twitter.fa-2x
-                  | でログイン 
+                  | Twitterでログイン 
