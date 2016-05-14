@@ -103,7 +103,7 @@ $('.users.show').ready ->
   			<p class="event_title">現在のトレンドは<b>#{trend}</b>です。</p>
 
   			<br>
-  			<h5>このトレンドと相関関係の高そうな手持ちのアカウントを選択して世界中のみんなのアカウントを奪い合ってください</h5>
+  			<h5 class="explain">このトレンドと相関関係の高そうな手持ちのアカウントを選択して世界中のみんなのアカウントを奪い合ってください</h5>
 		"""
 		$event_board.html(html)
 		$event_board.appendTo( $('body') ).fadeIn(500)
@@ -121,8 +121,8 @@ $('.users.show').ready ->
 	window.event_id = 0
 	window.answer_time = false
 
-	display_event('大統領選')
-	
+	#display_event('大統領選')
+
 
 	# 5秒に一回サーバーにアクセスして、イベントが更新されているかを見る
 	timer = setInterval ->
@@ -132,3 +132,9 @@ $('.users.show').ready ->
 		polling_recent_event(window.event_id)
 
 	, 5000
+
+
+	# リストのカードをクリックすると選択する
+	$('.your_cards li').on 'click', ->
+		$('.your_cards li.checked').removeClass('checked')
+		$(this).addClass('checked')
