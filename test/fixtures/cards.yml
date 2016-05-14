@@ -4,12 +4,16 @@ one:
   user_id: 1
   username: MyString
   screenname: MyString
+  tweets_count: 1
   follower_count: 1
-  thumb: MyString
+  thumbnail: MyString
+  category: MyString
 
 two:
   user_id: 1
   username: MyString
   screenname: MyString
+  tweets_count: 1
   follower_count: 1
-  thumb: MyString
+  thumbnail: MyString
+  category: MyString
