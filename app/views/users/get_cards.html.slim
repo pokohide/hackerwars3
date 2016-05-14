@@ -5,9 +5,11 @@
   	  	.thumbnail style="margin-bottom:0px;"
   	  	  = card_thumbnail card.profile_image_url, style: 'width: 100%'
   	    .caption.text-center
-    	  b = card.name
+    	  b = truncate card.name, length: 10
 
-.panel.panel-default style='min-height:130px;position:relative;padding:10px 0'
+.panel.panel-default style='min-height:185px;position:fixed;bottom:0px;width:80%;padding-bottom:10px;border:#333;'
+  .panel-heading 
+  	h5 取得するアカウント
   ul.have_cards
 
   .right_area

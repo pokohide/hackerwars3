@@ -29,6 +29,7 @@
 		ul.have_cards {
 			list-style: none;
 			display: inline;
+			padding-top: 4px;
 			li {
 				display: inline-block;
 				width: 100px;
@@ -41,7 +42,7 @@
 		.right_area {
 			position: absolute;
 			right: 20px;
-			top: 20px;
+			top: 80px;
 			#card_count {
 				font-size: 25px;
 				font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
