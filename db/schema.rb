@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160514063106) do
+ActiveRecord::Schema.define(version: 20160514065225) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "username"
-    t.string   "screenname"
+    t.string   "name"
+    t.string   "screen_name"
     t.integer  "tweets_count"
-    t.integer  "follower_count"
-    t.string   "thumbnail"
+    t.integer  "followers_count"
+    t.string   "profile_image_url"
     t.string   "category"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "users", force: :cascade do |t|
