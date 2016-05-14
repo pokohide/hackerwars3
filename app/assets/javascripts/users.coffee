@@ -15,7 +15,7 @@ $('.users.get_cards').ready ->
 		id = $(this).attr('data-id')
 
 		return if (src in card_srcs) || card_num > max_num - 1
-		
+
 		card_num += 1
 		card_srcs.push src
 		card_ids.push id
@@ -27,7 +27,7 @@ $('.users.get_cards').ready ->
 		html = """
 			<div class='thumbnail' style='margin-bottom:0'>
 				<img src="#{src}" style='width:100%'>
-			</div> 
+			</div>
 			<div class='caption text-center'>
 				<b>#{name}</b>
 			</div>
@@ -66,6 +66,19 @@ $('.users.get_cards').ready ->
 
 
 $('.users.show').ready ->
+  trend_tweet_feed = ->
+    $.ajax(
+      url: "/api/tweet"
+      async: true
+      type: 'GET'
+      dataType: 'json',
+      success: (response) ->
+        console.log response[0]
+      error: (req, err) ->
+        console.log err
+    )
+
+  trend_tweet_feed()
 
 	# ajaxで最新イベントがあるかをポーリングする
 	polling_recent_event = (event_id) ->
