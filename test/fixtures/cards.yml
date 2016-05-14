@@ -2,18 +2,18 @@
 
 one:
   user_id: 1
-  username: MyString
-  screenname: MyString
+  name: MyString
+  screen_name: MyString
   tweets_count: 1
-  follower_count: 1
-  thumbnail: MyString
+  followers_count: 1
+  profile_image_url: MyString
   category: MyString
 
 two:
   user_id: 1
-  username: MyString
-  screenname: MyString
+  name: MyString
+  screen_name: MyString
   tweets_count: 1
-  follower_count: 1
-  thumbnail: MyString
+  followers_count: 1
+  profile_image_url: MyString
   category: MyString
