@@ -14,7 +14,8 @@ class Event < ActiveRecord::Base
 				association = $2.to_i
 				card_id = $3.to_i
 				your_rank = rank if your_card_id == card_id
-				ranks.push( {association: association, card_id: card_id} )
+				card_name = Card.find(card_id).name
+				ranks.push( {association: association, card_id: card_id, card_name: card_name} )
 			end
 		end
 		return your_rank, ranks

@@ -98,6 +98,7 @@ $('.users.show').ready ->
 				if data.response == 'ok'
 					window.post_event_id = event_id
 					window.post_card_id = card_id
+					window.create_polling_time()
 		)
 		$("#loading").fadeOut(1000)
 
@@ -126,9 +127,28 @@ $('.users.show').ready ->
 		$event.html(html)
 		$event.prependTo( $('ul.events') ).fadeIn(500)
 
-	display_result = (ranking) ->
+
+	display_result = (rank, rankings) ->
 		## SweetAlertを出して、順位とランキングを表示。左上のイベントにも追加する。
+		$table = $("<table class='table table-stripped'></table>")
+		html = "<table class='table table-stripped'><thead><th><tr>順位</tr><tr>トレンドとの相関度</tr><tr>カード名</tr></th></thead><tbody>"
+		for ranking, index in rankings
+			html += "<th><td>#{index + 1}</td><td>#{ranking.association}</td><td>#{ranking.card_name}</td></th>"
+		html += "</tbody></table>"
 		## あなたは何位でした。まるまるのカードは失いました。
+		## rankで場合分け
+		swal(
+			html: $("<div class='jumbotron'></div>").html("<h3>あなたの順位は<b>#{rank}</b>です。</h3>#{html}")
+			timer: 5000
+			confirmButtonColor: '#FFB74D'
+			showConfirmButton: false
+			type: 'success'
+		)
+		$event = $("<li></li>")
+		html = "<div class='well well-sm'><h5><b>#{trend}</b>のトレンドバトルの結果です。</h5>#{html}</div>"
+		$event.html(html)
+		$event.prependTo( $('ul.events') ).fadeIn(500)
+
 
 	# イベントIDと参加者
 	refresh_event = (id, number) ->
@@ -138,12 +158,12 @@ $('.users.show').ready ->
 		$('.event_board').hide()
 		window.answer_time = false
 
-
 	$(document).on 'click', '#close_event', ->
 		dismiss_event()
 
 	# イベントに登録した時に呼び出される。登録時にそのイベントの集計結果を待つpolling_timeを設定
-	create_polling_time = ->
+	window.create_polling_time = ->
+		alert 2
 		window.waiting_for_result = true
 		result_timer = setInterval ->
 			clearInterval(result_timer) unless window.waiting_for_result
@@ -163,9 +183,8 @@ $('.users.show').ready ->
 				console.log data
 				return if data.response == 'ng'
 				window.waiting_for_result = false
-				display_result(data.ranking)
+				display_result(data.rank, data.ranking)
 		)
-	polling_result(14, 181)
 
 	# tweetをapiを叩いて読み込む
 	fetch_tweet = ->

@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require jquery.lazyload.min
-//= require sweetalert2
+//= require sweetalert2.min
 //= require bootstrap
 //= require bootstrap-material-design
 //= require_tree .

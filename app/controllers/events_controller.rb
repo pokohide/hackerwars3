@@ -42,7 +42,7 @@ class EventsController < ApplicationController
   		render json: data.to_json 
   	else
   		data = {response: 'ng'}
-  		render json data.to_json
+  		render json: data.to_json
   	end
   end
 
