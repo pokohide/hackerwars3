@@ -73,7 +73,23 @@ $('.users.show').ready ->
       type: 'GET'
       dataType: 'json',
       success: (response) ->
-        console.log response[0]
+        for tweet in response
+          console.log tweet
+          $tweet_board = $("<div class='bs-component'></div>")
+          html = """
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                #{tweet.name} @#{tweet.screen_name}
+              </div>
+              <div class="panel-body">
+                #{tweet.full_text}
+              </div>
+            </div>
+          """
+          $tweet_board.html(html)
+          $tweet_board.appendTo($('div.bs-component'))
+
       error: (req, err) ->
         console.log err
     )
