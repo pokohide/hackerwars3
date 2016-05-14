@@ -23,9 +23,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # for design
 gem 'bootstrap3-rails'
+gem 'twitter-bootstrap3-rails'
 gem 'bootstrap-material-design'
 gem 'slim-rails'
 gem 'gon' 
+gem 'material_icons'
 
 gem 'devise'
 gem 'omniauth-twitter' # => Twitterログイン

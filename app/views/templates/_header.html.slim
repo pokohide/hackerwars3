@@ -28,7 +28,7 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
               li
                 h5.text-center style="color: #333;margin:0"
                   span style="font-size: 20px; font-weight: bold;"
-                    = current_user.status.level
+                    = current_user.score
                   b Lv.
                 .progress
                   .progress-bar role="progressbar" aria-valuenow="#{@user_score}" aria-valuemin="0" aria-valuemax="100" style="width: #{@user_score}%"
@@ -48,7 +48,7 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
         - else
           li
             a href="/users/login"
-              i.glyphicon.glyphicon-user
+              i.material-icons group_add
               |  サインアップ   
           li.dropdown
             a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"

@@ -15,3 +15,31 @@
  *= require bootstrap-material-design
  *= require_self
  */
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: font-url('glyphicons-halflings-regular.eot');
+  src: font-url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), 
+    font-url('glyphicons-halflings-regular.woff') format('woff'), font-url('glyphicons-halflings-regular.ttf') format('truetype'), 
+    font-url('glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+* {
+    font-family: 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+    font-family: 'MS PGothic', Osaka, Arial, sans-serif;;
+}
+
+body {
+    margin: 0;
+    margin-top: 50px;
+    .container-fluid {
+        padding: 0px 20px;
+    }
+    background: #f2f2f2;
+    color: #333;
+    $color1: #eee;
+    $color2: #f2f2f2;
+    background: -webkit-gradient(linear, left top, right bottom, from($color1), color-stop(0.25, $color1), color-stop(0.25, $color2), color-stop(0.5, $color2), color-stop(0.5, $color1), color-stop(0.75, $color1), color-stop(0.75, $color2), to($color2));
+    background: -moz-linear-gradient(-45deg, $color1 25%, $color2 25%, $color2 50%, $color1 50%, $color1 75%, $color2 75%, $color2);
+    background: linear-gradient(-45deg, $color1 25%, $color2 25%, $color2 50%, $color1 50%, $color1 75%, $color2 75%, $color2);
+    background-size: 8px 8px;
+}
