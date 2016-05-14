@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require bootstrap
+ *= require bootstrap_and_overrides
  *= require bootstrap-material-design
  *= require_self
  */
@@ -31,6 +32,8 @@
 body {
     margin: 0;
     margin-top: 50px;
+    position: relative;
+    height: 800px;
     .container-fluid {
         padding: 0px 20px;
     }
@@ -75,8 +78,9 @@ header {
         padding: 0; 
         margin-bottom: -10px; 
         margin-top: -10px; 
+        margin-right: 10px;
         border: 2px solid #fff;
-        border-radius: 2px; 
+        border-radius: 2px;
         height: 40px;
         width: 40px;
     }   
@@ -219,4 +223,10 @@ header {
 
 .wrap {
     overflow: hidden;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }

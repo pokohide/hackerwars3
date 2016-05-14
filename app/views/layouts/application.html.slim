@@ -2,8 +2,8 @@ doctype html
 head
   = include_gon
   title Hackerwars3
-  = stylesheet_link_tag    "application", media: "all"
-  = javascript_include_tag "application"
+  = stylesheet_link_tag    "application", media: "all", debug: true 
+  = javascript_include_tag "application", debug: true
   = csrf_meta_tags
 .wrap
   body class="#{controller_name} #{action_name}"
@@ -12,10 +12,10 @@ head
   .countatiner-fluid
     .row
       .col-sm-12.col-md-12 style="padding:0;margin:0"
-        header.clearfix
+        header
           == render 'templates/header'
           == yield :header
-      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10 style="min-height: 600px;"
+      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10 style="min-height: 800px;"
         = alert_or_notice alert, notice
         .continer-fluid
           .row
