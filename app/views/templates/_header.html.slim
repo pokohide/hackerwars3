@@ -13,17 +13,14 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
         li
-          = link_to '#', id: "intro_btn", class: "hidden-xs" do
-            = image_tag "info.png"
-        li
-          = link_to new_evideo_path, class: 'new_evideo' do
-            i.glyphicon.glyphicon-plus
-            |  動画投稿
+          /= link_to new_evideo_path, class: 'new_evideo' do
+          /  i.glyphicon.glyphicon-plus
+          /  |  動画投稿
 
         - if user_signed_in?
           li.dropdown
             a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-              = thumbnail current_user.thumb(:thumb)
+              /= thumbnail current_user.thumb(:thumb)
               span.username
                 = current_user.username
 
