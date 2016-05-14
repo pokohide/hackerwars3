@@ -80,9 +80,11 @@ $('.users.show').ready ->
 				if data.id != window.event_id
 					window.event_id = data.id
 					window.answer_time = true
+					display_event(data.trend)
 		)
 
 	push_event_with_id = (event_id, card_id) ->
+		$("#loading").show()
 		$.ajax(
 			url: "/push_event/#{event_id}/with/#{card_id}"
 			async: true
@@ -92,6 +94,7 @@ $('.users.show').ready ->
 			success: (data, textStatus, jqXHR) ->
 				console.log data
 		)
+		$("#loading").fadeOut(1000)
 
 	# トレンドがtrendのイベントをポップアップする。時間も表示する。
 	display_event = (trend) ->
@@ -117,20 +120,14 @@ $('.users.show').ready ->
 
 
 	# このevent_idを更新していく。
-	#window.event_id = gon.event_id
-	window.event_id = 0
+	window.event_id = gon.event_id
 	window.answer_time = false
-
-	#display_event('大統領選')
-
 
 	# 5秒に一回サーバーにアクセスして、イベントが更新されているかを見る
 	timer = setInterval ->
 		clearInterval(timer) if false
-
 		# event_idでアクセスしている。
 		polling_recent_event(window.event_id)
-
 	, 5000
 
 
@@ -138,3 +135,16 @@ $('.users.show').ready ->
 	$('.your_cards li').on 'click', ->
 		$('.your_cards li.checked').removeClass('checked')
 		$(this).addClass('checked')
+
+
+	$('.use_this_card').on 'click', (e) ->
+		e.preventDefault()
+		unless window.answer_time
+			alert 'まだトレンドは発表されていません。'
+			return
+		if $('.your_cards li.checked').size == 0
+			alert 'カードを選択してください。'
+
+		# 選択したカードをイベントに登録する
+		push_event_with_id(window.event_id, card_id)
+		dismiss_event()

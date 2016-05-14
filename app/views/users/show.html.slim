@@ -18,7 +18,7 @@
   	h5 あなたのアカウントです。
   ul.your_cards
   	- @cards.each do |card|
-  	  li style='width:100px;margin:0 8px'
+  	  li style='width:100px;margin:0 8px' data-id="#{card.id}"
   		.thumbnail style='margin-bottom:0'
   		  = card_thumbnail card.profile_image_url, style: 'width: 100%'
  		.caption.text-center
@@ -26,4 +26,4 @@
 
   .right_area
   	#card_stlength
-  	a.btn.btn-success#use_this_card href='#' 使用する
+  	a.btn.btn-success.use_this_card href='#' 使用する
