@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tweet_id: MyString
+  name: MyString
+  screen_name: MyString
+  full_text: MyString
+
+two:
+  tweet_id: MyString
+  name: MyString
+  screen_name: MyString
+  full_text: MyString

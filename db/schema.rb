@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160514065225) do
+ActiveRecord::Schema.define(version: 20160514121234) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "user_id"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20160514065225) do
     t.string   "category"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "tweets", force: :cascade do |t|
+    t.string   "tweet_id"
+    t.string   "name"
+    t.string   "screen_name"
+    t.string   "full_text"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
