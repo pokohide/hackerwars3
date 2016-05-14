@@ -7,8 +7,7 @@ module ApplicationHelper
             type = "success"
         end
 
-        content_tag(:div, class: "alert alert-#{type}", style: "margin:10px 0px") do
-            "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+        content_tag(:div, class: "alert alert-#{type}", style: "margin:10px 0px;position:absolute;top:20px;z-index:10;width:100%") do
             alert || notice
         end
     end

@@ -5,10 +5,10 @@ class UsersController < ApplicationController
 
   def show
   	unless current_user.cards.present?
-  		redirect_to get_cards_user_url(current_user.id), notice: '好きなアカウントを5つ選択してください。'
+  		redirect_to get_cards_user_url(current_user.id), notice: '好きなアカウントを8つ選択してください。'
   		return
   	end
-  	@user = User.find(params[:id])
+  	@user = current_user || User.find_by(id: params[:id])
   	@cards = @user.cards
   	gon.event_id = Event.last.try(:id) || 0
   	#@trend = google_trend('google','apple','yahoo','uber')
