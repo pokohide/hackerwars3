@@ -2,12 +2,49 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.users.show {
+	width: 80%;
+	min-height: 500px;
+	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom: 190px;
+	.panel {
+		ul.your_cards {
+			list-style: none;
+			display: inline;
+			margin-right: 50px;
+			li {
+				display: inline-block;
+				width: 100px;
+				.thumbnail {
+					width: 100px;
+				}
+			}
+		}
+		.right_area {
+			position: absolute;
+			right: 20px;
+			top: 80px;
+			#card_stlength {
+				font-size: 25px;
+				font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
+				font-weight: light;
+				text-align: center;
+			}
+			#use_this_card {
+				bottom: 0px;
+			}		
+		}
+	}
+}
+
 .users.get_cards {
 	.cards_field {
 		width: 80%;
 		min-height: 500px;
 		margin: 0 auto;
 		margin-top: 30px;
+		margin-bottom: 190px;
 		.card_field {
 			.thumbnail {
 				margin-bottom: 0;

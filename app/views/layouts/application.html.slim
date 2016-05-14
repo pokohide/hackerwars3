@@ -15,7 +15,7 @@ head
         header
           == render 'templates/header'
           == yield :header
-      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10 style="min-height:800px;height:auto;"
+      .col-sm-12.col-md-12.col-lg-12 style="min-height:800px;height:auto;position:relative"
         = alert_or_notice alert, notice
         == yield
         footer

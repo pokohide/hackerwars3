@@ -1,2 +1,44 @@
-h1 = current_user.username
-p Find me in app/views/user/show.html.slim
+.countatiner-fluid
+
+
+  .countatiner-fluid
+    .row
+      .col-sm-12.col-md-12 style="padding:0;margin:0"
+        header.clearfix
+          == render 'templates/header'
+          == render 'templates/category'
+          == yield :header
+      .col-sm-12.col-md-12.col-lg-offset-1.col-lg-10
+        = alert_or_notice alert, notice
+        .continer-fluid
+          .row
+            .col-sm-12.col-md-8.col-lg-9
+              article.main
+                == yield
+            .col-sm-12.col-md-4.col-lg-3
+              article.sidebar
+                == yield :sidebar
+      .col-sm-12.col-md-12
+        footer
+          == render 'templates/footer'
+  #pagetop.pagetop
+    i.glyphicon.glyphicon-chevron-up
+
+.countatiner-fluid
+  .row
+  	.col-sm-12.col-md-6 
+
+.panel.panel-default style='min-height:196px;position:fixed;bottom:0px;width:80%;padding-bottom:10px;border:3px solid #333;left:10%;z-index:100'
+  .panel-heading style='margin-bottom:5px;'
+  	h5 あなたのアカウントです。
+  ul.your_cards
+  	- @cards.each do |card|
+  	  li style='width:100px;margin:0 8px'
+  		.thumbnail style='margin-bottom:0'
+  		  = card_thumbnail card.profile_image_url, style: 'width: 100%'
+ 		.caption.text-center
+ 		  b = card.name
+
+  .right_area
+  	#card_stlength
+  	a.btn.btn-success#use_this_card href='#' 使用する
