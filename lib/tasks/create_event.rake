@@ -1,7 +1,11 @@
 namespace :event do
     desc "毎分実施。クロールしてトレンドがあれば問題を生成する"
     task create: :environment do
+        trend_word = get_trend
 
+        event = Event.new
+        event.trend_word = trend_word
+        
     end
 
     desc "答えの集計 #=> イベントのトレンドとその答えにきたユーザ名との相関が一番大きい順にソート"
@@ -14,7 +18,7 @@ namespace :event do
                 result << [association, card.id]
             end
             result.sort_by { |arr| arr[0] }
-            
+
             "".tap do |str|
                 result.each_with_index do |res, ind|
                     if ind == 0

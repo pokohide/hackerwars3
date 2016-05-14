@@ -16,8 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'poll_event' => 'event#polled'
-  post 'push_event' => 'event#pushed'
+  get 'poll_event/:id' => 'event#polled'
+  post 'push_event/:id/with/:card_id' => 'event#pushed'
 
   # TwitterStreamingAPI
   namespace 'api', :module => 'api' do
