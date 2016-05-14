@@ -132,3 +132,20 @@
 		}
 	}
 }
+
+.event_board {
+	width: 500px;
+	height: 300px;
+	margin: -150px 0 0 -250px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 101;
+	.event_title {
+		font-weight: normal;
+		font-size: 18px;
+		b {
+			font-size: 25px;
+		}
+	}
+}
