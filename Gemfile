@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap3-rails'
 gem 'bootstrap-material-design'
 gem 'slim-rails'
+gem 'gon' 
 
 gem 'devise'
 gem 'omniauth-twitter' # => Twitterログイン
