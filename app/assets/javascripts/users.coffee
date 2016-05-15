@@ -108,6 +108,7 @@ $('.users.show').ready ->
 		sec = time % 60
 
 
+
 	# トレンドがtrendのイベントをポップアップする。時間も表示する。
 	display_event = (trend, id, num) ->
 		$event_board = $("<div class='jumbotron event_board'></div>")
@@ -115,8 +116,8 @@ $('.users.show').ready ->
 		html = """
   			<button type="button" class="close" id="close_event" data-dismiss="modal" aria-hidden="true">×</button>
   			<br>
+  			<h3>トレンドバトル</h3>
   			<p class="event_title">現在のトレンドは<b>#{trend}</b>です。</p>
-
   			<br>
   			<h5 class="explain">このトレンドと相関関係の高そうな手持ちのアカウントを選択して世界中のみんなのアカウントを奪い合ってください</h5>
 		"""
@@ -256,3 +257,8 @@ $('.users.show').ready ->
 		# 選択したカードをイベントに登録する
 		push_event_with_id(window.event_id, card_id)
 		dismiss_event()
+
+
+	# 念のため遷移前にタイマーを切る
+	$(window).on 'beforeunload', ->
+		clearInterval(timer)

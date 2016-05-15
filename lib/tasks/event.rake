@@ -58,13 +58,12 @@ namespace :event do
 
     private
 
-    def update_user id
+    def update_user(id)
         user = User.find(id)
-
     end
 
     # cardがuserに所有権限が映る
-    def swap_card card user
+    def swap_card(card, user)
         card.user_id = user.id
         card.save
     end
