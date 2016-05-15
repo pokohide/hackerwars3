@@ -28,6 +28,11 @@ namespace :event do
             result = []
             event.cards.each do |card|
                 association = associate w1, card.name
+                if card.followers_count <= 1000
+                  association += card.followers_count * rand(10..1000)
+                else
+                  association += card.followers_count / 10
+                end
                 result << [association, card.id]
             end
             result.sort_by { |b, _| b }.reverse
