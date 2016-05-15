@@ -11,7 +11,7 @@ module ApplicationHelper
             alert || notice
         end
     end
-    
+
     def thumbnail source, options = {}
         if source.instance_of?(String)
             source.sub!(/http:\/\//) { "https://" }
@@ -26,6 +26,9 @@ module ApplicationHelper
     end
 
     def winning_percentage win, lose
+				if win.zero? && lose.zero? then
+						return 0
+				end
         ret = ( 1 - win/(win + lose).to_f ) * 100
         ret.present? ? ret : 0
     end
