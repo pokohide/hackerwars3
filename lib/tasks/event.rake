@@ -46,25 +46,31 @@ namespace :event do
             event.finished = true
             event.save
 
-            # scoreの更新
+            # 1位のscoreの更新
             rank = event.result.split(":")[0]
             association = event.result.split(":")[1]
             card_id = event.result.split(":")[2]
             c = Card.find(card_id)
             u = User.find(c.user_id)
-            u.score += (result.length - rank.to_i) * 5 + (association.to_i / 100000)
+            u.score += (result.length - rank.to_i) * 15 + (association.to_i / 100000)
             u.save
 
-            # 1位へカードの移動
+            # 1位へカードの移動と勝敗数更新
             winners_card_id = result[0][1]
             winners_card = Card.find(winners_card_id)
+            winner = User.find(winners_card.user_id)
+            winner.win += 1
+            winner.save
             result[1..-1].each do |res|
               losers_card_id = res[1]
               losers_card = Card.find(losers_card_id)
+              loser = User.find(losers_card.user_id)
+              loser.lose += 1
+              loser.save
               losers_card.user_id = winners_card.user_id
               losers_card.save
+
             end
-            binding.pry
         end
     end
 
