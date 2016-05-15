@@ -99,6 +99,9 @@ $('.users.show').ready ->
 					window.post_event_id = event_id
 					window.post_card_id = card_id
 					window.create_polling_time()
+				else
+					refresh_event(data.id, data.number)
+
 		)
 		$("#loading").fadeOut(1000)
 
@@ -112,7 +115,6 @@ $('.users.show').ready ->
 	# トレンドがtrendのイベントをポップアップする。時間も表示する。
 	display_event = (trend, id, num) ->
 		$event_board = $("<div class='jumbotron event_board'></div>")
-
 		html = """
   			<button type="button" class="close" id="close_event" data-dismiss="modal" aria-hidden="true">×</button>
   			<br>
@@ -138,14 +140,28 @@ $('.users.show').ready ->
 	display_result = (rank, rankings) ->
 		## SweetAlertを出して、順位とランキングを表示。左上のイベントにも追加する。
 		$table = $("<table class='table table-stripped'></table>")
-		html = "<table class='table table-stripped'><thead><th width='50'><tr>順位</tr><tr width='60'>トレンドとの相関度</tr><tr>カード名</tr></th></thead><tbody>"
+		html = """
+			<table class='table table-stripped'>
+				<thead>
+					<th>
+						<tr width="100">順位</tr>
+						<tr width='100'>トレンドとの相関度</tr>
+						<tr>カード名</tr>
+					</th>
+				</thead>
+				<tbody>
+		"""
 		for ranking, index in rankings
-			html += "<th><td>#{index + 1}</td><td>#{ranking.association}</td><td>#{ranking.card_name}</td></th>"
+			html += "<th><td>#{index + 1}位</td><td>#{ranking.association}pt</td><td>#{ranking.card_name}</td></th>"
 		html += "</tbody></table>"
 		## あなたは何位でした。まるまるのカードは失いました。
+		if rank == 1
+			message = "おめでとうございます！あなたは#{rankings.length-1}個のアカウントを奪いました。"
+		else
+			message = "あなたは#{rannking.card_name}を失いました。"
 		## rankで場合分け
 		swal(
-			html: $("<div class='jumbotron'></div>").html("<h3>あなたの順位は<b>#{rank}</b>です。</h3>#{html}")
+			html: $("<div class='jumbotron'></div>").html("<h3>あなたの順位は<b>#{rank}</b>です。</h3><h4>#{message}</h4>#{html}")
 			timer: 5000
 			confirmButtonColor: '#FFB74D'
 			showConfirmButton: false
@@ -262,3 +278,6 @@ $('.users.show').ready ->
 	# 念のため遷移前にタイマーを切る
 	$(window).on 'beforeunload', ->
 		clearInterval(timer)
+
+		if window.answer_time
+			return "トレンドバトル待機中ですが移動してよろしいですか？"
