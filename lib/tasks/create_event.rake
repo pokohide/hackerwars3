@@ -36,7 +36,7 @@ namespace :event do
                 association = associate w1, card.name
                 result << [association, card.id]
             end
-            result.sort_by { |arr| arr[0] }
+            result.sort_by { |arr| arr[0] }.reverse
 
             "".tap do |str|
                 result.each_with_index do |res, ind|
@@ -51,6 +51,14 @@ namespace :event do
             end
             event.finished = true
             event.save
+            # association = event.result.split(":")[1]
+            # card_id = event.result.split(":")[2]
+            # c = Card.find(card_id)
+            # u = User.find(c.user_id)
+            # binding.pry
+            # u.score += association.to_i
+            # u.save
+            # binding.pry
         end
     end
 
