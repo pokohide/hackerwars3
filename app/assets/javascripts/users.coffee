@@ -4,7 +4,8 @@
 
 $('.users.get_cards').ready ->
 	card_num = 0
-	max_num = 5
+	#max_num = 5
+	max_num = 30
 	card_ids = []
 	card_srcs = []
 
