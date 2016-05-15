@@ -131,7 +131,7 @@ $('.users.show').ready ->
 	display_result = (rank, rankings) ->
 		## SweetAlertを出して、順位とランキングを表示。左上のイベントにも追加する。
 		$table = $("<table class='table table-stripped'></table>")
-		html = "<table class='table table-stripped'><thead><th><tr>順位</tr><tr>トレンドとの相関度</tr><tr>カード名</tr></th></thead><tbody>"
+		html = "<table class='table table-stripped'><thead><th width='50'><tr>順位</tr><tr width='60'>トレンドとの相関度</tr><tr>カード名</tr></th></thead><tbody>"
 		for ranking, index in rankings
 			html += "<th><td>#{index + 1}</td><td>#{ranking.association}</td><td>#{ranking.card_name}</td></th>"
 		html += "</tbody></table>"
