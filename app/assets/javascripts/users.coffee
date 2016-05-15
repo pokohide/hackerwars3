@@ -58,7 +58,7 @@ $('.users.get_cards').ready ->
 				ids: push_ids
 			error: (jqXHR, textStatus, errorThrown) ->
 				console.log errorThrown
-				alert '登録に失敗しました。'
+				#alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				window.location.href = "/users/#{gon.user_id}"
 		)
@@ -73,10 +73,9 @@ $('.users.show').ready ->
 			async: true
 			type: 'GET'
 			error: (jqXHR, textStatus, errorThrown) ->
-				alert '登録に失敗しました。'
+				#alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
-
 				if data.id != window.event_id && $('body').hasClass('show')
 					window.event_id = data.id
 					window.answer_time = true
@@ -92,13 +91,21 @@ $('.users.show').ready ->
 			async: true
 			type: 'POST'
 			error: (jqXHR, textStatus, errorThrown) ->
-				alert '登録に失敗しました。'
+				#alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
 				if data.response == 'ok'
 					window.post_event_id = event_id
 					window.post_card_id = card_id
 					window.create_polling_time()
+					refresh_event(data.id, data.number)
+					swal(
+						html: $("<div class='jumbotron'></div>").html("<h3>ありがとうございます。</h3><p>トレンドバトル終了まで、約<b>#{display_event_time data.rest_time}秒</b>お待ち下さい。</p><p>カードを受け付けました。</p>")
+						timer: 5000
+						confirmButtonColor: '#FFB74D'
+						showConfirmButton: false
+						type: 'success'
+					)
 				else
 					refresh_event(data.id, data.number)
 
@@ -137,7 +144,7 @@ $('.users.show').ready ->
 		$event.prependTo( $('ul.events') ).fadeIn(500)
 
 
-	display_result = (rank, rankings) ->
+	window.display_result = (rank, rankings) ->
 		## SweetAlertを出して、順位とランキングを表示。左上のイベントにも追加する。
 		$table = $("<table class='table table-stripped'></table>")
 		html = """
@@ -172,7 +179,7 @@ $('.users.show').ready ->
 		$event.prependTo( $('ul.events') ).fadeIn(500)
 
 		setTimeout ->
-			location.reload()
+			window.location.reload()
 		, 5500
 
 
@@ -203,12 +210,12 @@ $('.users.show').ready ->
 			type: 'GET'
 			dataType: 'json'
 			error: (jqXHR, textStatus, errorThrown) ->
-				alert 'ポーリングに失敗しました。'
+				#alert 'ポーリングに失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
 				return if data.response == 'ng'
 				window.waiting_for_result = false
-				display_result(data.rank, data.ranking)
+				window.display_result(data.rank, data.ranking)
 		)
 
 	# tweetをapiを叩いて読み込む
@@ -219,7 +226,7 @@ $('.users.show').ready ->
 			type: 'GET'
 			dataType: 'json'
 			error: (jqXHR, textStatus, errorThrown) ->
-				alert '登録に失敗しました。'
+				#alert '登録に失敗しました。'
 			success: (data, textStatus, jqXHR) ->
 				console.log data
 				return if window.tweet_id == data.id
@@ -276,6 +283,8 @@ $('.users.show').ready ->
 		# 選択したカードをイベントに登録する
 		push_event_with_id(window.event_id, card_id)
 		dismiss_event()
+		$('.your_cards li.checked').fadeOut(500)
+
 
 
 	# 念のため遷移前にタイマーを切る
