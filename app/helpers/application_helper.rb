@@ -27,7 +27,7 @@ module ApplicationHelper
 
     def winning_percentage win, lose
 		return 0 if win.zero? && lose.zero?
-        ret = ( 1 - win/(win + lose).to_f ) * 100
+        ret = ( 1 - lose/(win + lose).to_f ) * 100
         ret.round
     end
 end
