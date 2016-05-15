@@ -28,6 +28,7 @@ gem 'bootstrap-material-design'
 gem 'slim-rails'
 gem 'gon'
 gem 'material_icons'
+gem 'sweetalert2'
 
 gem 'devise'
 gem 'omniauth-twitter' # => Twitterログイン
