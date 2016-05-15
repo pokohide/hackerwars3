@@ -1,4 +1,4 @@
-.container-fluid2
+.container-fluid2 style='margin-top:40px'
   .cover-container
     .center-logo
       = image_tag 'big-logo.png'
@@ -6,16 +6,23 @@
       .center-button
         = link_to user_omniauth_authorize_path(:twitter), class: 'btn btn-raised btn-primary' do
           |ログイン
-  .row
+
+  .row style='margin-top:40px'
    .col-md-4.text-center
     .service-box
-      = image_tag '4.jpg',class:"img-circle", :style => "width:200px;height:200px"
-      .h3 Twitterをカード化
+     .text-center
+       = image_tag '4.jpg',class:"img-circle", :style => "width:200px;height:200px"
+       .h3 Twitterをカード化
+       .h4 ありとあらゆるカードが登場！
    .col-md-4.text-center
     .service-box
+     .text-center
       = image_tag '2.jpg',class:"img-circle", :style => "width:200px;height:200px"
       .h3 弱肉強食
+      .h4 弱き者は強き者に淘汰される
    .col-md-4.text-center
     .service-box
+     .text-center
       = image_tag '1.jpg',class:"img-circle", :style => "width:200px;height:200px"
       .h3 トレンド重視
+      .h4 世界情勢を知り尽くしたものが勝者だ！
