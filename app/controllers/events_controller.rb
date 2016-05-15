@@ -2,17 +2,18 @@ class EventsController < ApplicationController
   require 'csv'
   # event_idにcard_idを登録する
   def pushed
-  	event = Event.find_by(id: params[:id])
-  	card = Card.find_by(id: params[:card_id])
+  	event = Event.find(params[:id])
+    logger.debug
+  	card = Card.find(params[:card_id])
   	count = event.try(:cards).try(:count) || 0
     # イベントの時間内なら登録する。時間外なら何も返さない
   	rest_time = (event.created_at + 3.minutes - Time.now)
 
-  	if rest_time > 0
-		Card.transaction do
-			card.event_id = event.id
-			card.save
-		end
+  	if rest_time > 0 && card.present? && event.present?
+		  Card.transaction do
+			 card.event = event
+			 card.save
+		  end
   		render json: {response: 'ok', id: event.id, rest_time: rest_time.to_i, number: count}.to_json
   	else
   		render json: {response: 'ng', id: event.id, number: count}.to_json
@@ -20,9 +21,15 @@ class EventsController < ApplicationController
   end
 
   def polled # event_idにアクセスする
+    if params[:id] == 0
+      render json: {response: 'ng'}.to_json
+      return
+    end
   	ex_id = params[:id]
   	now_id = Event.last.try(:id) || ex_id
-  	event = Event.find_by(id: now_id)
+    logger.debug ex_id
+    logger.debug now_id
+  	event = Event.find(now_id)
   	count = event.try(:cards).try(:count) || 0
 
   	# もし送られてきたex_idとnow_idが一緒なら新しいイベントは作られていない。

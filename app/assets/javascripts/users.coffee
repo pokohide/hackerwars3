@@ -100,7 +100,7 @@ $('.users.show').ready ->
 					window.create_polling_time()
 					refresh_event(data.id, data.number)
 					swal(
-						html: $("<div class='jumbotron'></div>").html("<h3>ありがとうございます。</h3><p>トレンドバトル終了まで、約<b>#{display_event_time data.rest_time}秒</b>お待ち下さい。</p><p>カードを受け付けました。</p>")
+						html: $("<div class='jumbotron'></div>").html("<h3>ありがとうございます。</h3><p>トレンドバトル終了まで、約<b>#{display_rest_time data.rest_time}秒</b>お待ち下さい。</p><p>カードを受け付けました。</p>")
 						timer: 5000
 						confirmButtonColor: '#FFB74D'
 						showConfirmButton: false
@@ -279,7 +279,7 @@ $('.users.show').ready ->
 			alert 'カードを選択してください。'
 			return
 
-		card_id = parseInt $('.your_cards li.checked').attr('data-id'), 10
+		card_id = parseInt $('.your_cards li.checked').attr('data-id')
 		# 選択したカードをイベントに登録する
 		push_event_with_id(window.event_id, card_id)
 		dismiss_event()

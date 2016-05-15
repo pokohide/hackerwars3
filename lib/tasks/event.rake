@@ -25,7 +25,7 @@ namespace :event do
     task aggregate: :environment do
         Event.where(finished: false).all.each do |event|
             w1 = event.trend_word
-            result = []
+            x = []
             event.cards.each do |card|
                 association = associate w1, card.name
                 if card.followers_count <= 1000
@@ -33,12 +33,12 @@ namespace :event do
                 else
                   association += card.followers_count / 10
                 end
-                result << [association, card.id]
+                x.push([association, card.id])
             end
-            result.sort_by { |b, _| b }.reverse
+            x = x.sort_by { |b, _| b }.reverse
 
             tmp_result = ""
-            result.each_with_index do |res, ind|
+            x.each_with_index do |res, ind|
                 if ind == 0
                     tmp_result += "#{ind+1}:#{res[0]}:#{res[1]}"
                 else
@@ -47,29 +47,31 @@ namespace :event do
             end
             event.result = tmp_result
 
-            winner_card_id = result[0][1].to_i
-            winner_id = Card.find_by(id: winner_card_id).user_id
+            if x.present? && x[0].present? && x[0][1].present?
+                winner_card_id = x[0][1].to_i
+                winner_id = Card.find(winner_card_id).user.id
 
-            # 参加者のスコアを更新
-            result.each_with_index do |res, ind|
-                association = res[0].to_i
-                card_id = res[1].to_i
-                card = Card.find_by(id: card_id)
-                user = card.user
+                # 参加者のスコアを更新
+                x.each_with_index do |res, ind|
+                    association = res[0].to_i
+                    card_id = res[1].to_i
+                    card = Card.find_by(id: card_id)
+                    user = card.user
 
-                if ind == 0
-                    user.win += 1
-                else
-                    user.lose += 1
-                    card.user_id = winner_id
+                    if ind == 0
+                        user.win += 1
+                    else
+                        user.lose += 1
+                        card.user_id = winner_id
+                    end
+                    score = (x.size - ind) * 15 + (association / 100000)
+                    user.score += score
+                    user.save
                 end
-                score = (result.size - ind) * 15 + (association / 100000)
-                user.score += score
-                user.save
-            end
 
-            event.finished = true
-            event.save
+                event.finished = true
+                event.save
+            end
         end
     end
 
