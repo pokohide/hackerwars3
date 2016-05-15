@@ -15058,7 +15058,7 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
   });
 
   $('.users.show').ready(function() {
-    var dismiss_event, display_event, display_result, fetch_tweet, insert_tweet, polling_recent_event, polling_result, push_event_with_id, refresh_event, timer;
+    var dismiss_event, display_event, display_rest_time, display_result, fetch_tweet, insert_tweet, polling_recent_event, polling_result, push_event_with_id, refresh_event, timer;
     polling_recent_event = function(event_id) {
       return $.ajax({
         url: "/poll_event/" + event_id,
@@ -15094,15 +15094,22 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
             window.post_event_id = event_id;
             window.post_card_id = card_id;
             return window.create_polling_time();
+          } else {
+            return refresh_event(data.id, data.number);
           }
         }
       });
       return $("#loading").fadeOut(1000);
     };
+    display_rest_time = function(time) {
+      var min, sec;
+      min = time / 60;
+      return sec = time % 60;
+    };
     display_event = function(trend, id, num) {
       var $event, $event_board, html;
       $event_board = $("<div class='jumbotron event_board'></div>");
-      html = "<button type=\"button\" class=\"close\" id=\"close_event\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n<br>\n<p class=\"event_title\">現在のトレンドは<b>" + trend + "</b>です。</p>\n\n<br>\n<h5 class=\"explain\">このトレンドと相関関係の高そうな手持ちのアカウントを選択して世界中のみんなのアカウントを奪い合ってください</h5>";
+      html = "<button type=\"button\" class=\"close\" id=\"close_event\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n<br>\n<h3>トレンドバトル</h3>\n<p class=\"event_title\">現在のトレンドは<b>" + trend + "</b>です。</p>\n<br>\n<h5 class=\"explain\">このトレンドと相関関係の高そうな手持ちのアカウントを選択して世界中のみんなのアカウントを奪い合ってください</h5>";
       $event_board.html(html);
       $event_board.appendTo($('body')).fadeIn(500);
       $event = $("<li class='event-" + id + "'></li>");
@@ -15111,16 +15118,21 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
       return $event.prependTo($('ul.events')).fadeIn(500);
     };
     display_result = function(rank, rankings) {
-      var $event, $table, html, i, index, len, ranking;
+      var $event, $table, html, i, index, len, message, ranking;
       $table = $("<table class='table table-stripped'></table>");
-      html = "<table class='table table-stripped'><thead><th width='50'><tr>順位</tr><tr width='60'>トレンドとの相関度</tr><tr>カード名</tr></th></thead><tbody>";
+      html = "<table class='table table-stripped'>\n	<thead>\n		<th>\n			<tr width=\"100\">順位</tr>\n			<tr width='100'>トレンドとの相関度</tr>\n			<tr>カード名</tr>\n		</th>\n	</thead>\n	<tbody>";
       for (index = i = 0, len = rankings.length; i < len; index = ++i) {
         ranking = rankings[index];
-        html += "<th><td>" + (index + 1) + "</td><td>" + ranking.association + "</td><td>" + ranking.card_name + "</td></th>";
+        html += "<th><td>" + (index + 1) + "位</td><td>" + ranking.association + "pt</td><td>" + ranking.card_name + "</td></th>";
       }
       html += "</tbody></table>";
+      if (rank === 1) {
+        message = "おめでとうございます！あなたは" + (rankings.length - 1) + "個のアカウントを奪いました。";
+      } else {
+        message = "あなたは" + rannking.card_name + "を失いました。";
+      }
       swal({
-        html: $("<div class='jumbotron'></div>").html("<h3>あなたの順位は<b>" + rank + "</b>です。</h3>" + html),
+        html: $("<div class='jumbotron'></div>").html("<h3>あなたの順位は<b>" + rank + "</b>です。</h3><h4>" + message + "</h4>" + html),
         timer: 5000,
         confirmButtonColor: '#FFB74D',
         showConfirmButton: false,
@@ -15129,7 +15141,10 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
       $event = $("<li></li>");
       html = "<div class='well well-sm'><h5><b>" + trend + "</b>のトレンドバトルの結果です。</h5>" + html + "</div>";
       $event.html(html);
-      return $event.prependTo($('ul.events')).fadeIn(500);
+      $event.prependTo($('ul.events')).fadeIn(500);
+      return setTimeout(function() {
+        return location.reload();
+      }, 5500);
     };
     refresh_event = function(id, number) {
       return $(".events li.event-" + id).find("参加人数は" + number + "人です");
@@ -15220,7 +15235,7 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
       $('.your_cards li.checked').removeClass('checked');
       return $(this).addClass('checked');
     });
-    return $('.users.show .use_this_card').on('click', function(e) {
+    $('.users.show .use_this_card').on('click', function(e) {
       var card_id;
       e.preventDefault();
       if (!window.answer_time) {
@@ -15234,6 +15249,12 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
       card_id = parseInt($('.your_cards li.checked').attr('data-id'), 10);
       push_event_with_id(window.event_id, card_id);
       return dismiss_event();
+    });
+    return $(window).on('beforeunload', function() {
+      clearInterval(timer);
+      if (window.answer_time) {
+        return "トレンドバトル待機中ですが移動してよろしいですか？";
+      }
     });
   });
 
