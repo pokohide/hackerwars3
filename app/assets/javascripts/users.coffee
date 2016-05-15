@@ -4,12 +4,11 @@
 
 $('.users.get_cards').ready ->
 	card_num = 0
-	#max_num = 5
-	max_num = 30
+	max_num = 5
 	card_ids = []
 	card_srcs = []
 
-	$('#card_count').text('0/8')
+	$('#card_count').text("#{card_num}/#{max_num}")
 	$('.card_field').on 'click', ->
 		src = $(this).find('img').attr('src')
 		name = $(this).find('b').text()
@@ -164,7 +163,6 @@ $('.users.show').ready ->
 
 	# イベントに登録した時に呼び出される。登録時にそのイベントの集計結果を待つpolling_timeを設定
 	window.create_polling_time = ->
-		alert 2
 		window.waiting_for_result = true
 		result_timer = setInterval ->
 			clearInterval(result_timer) unless window.waiting_for_result

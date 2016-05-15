@@ -6,9 +6,8 @@
   	  .space.user_info
         = render 'templates/user_info', locals: { user: @user }
     .col-sm-12.col-md-6 style="padding-left:10px;"
-      .space3.space
-        erb:
-          <iframe scrolling="no" style="border:none;" width="640" height="330" src="http://www.google.com/trends/fetchComponent?hl=ja-JP&q=danbo+robot,danbo+amazon,danbo+yotsuba &cmpt=q&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=640&h=330"></iframe>
+      .space.google_trend
+      	= render 'templates/trend'
       .space.tl
       	= render 'templates/tl'
 
