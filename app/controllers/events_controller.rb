@@ -6,10 +6,11 @@ class EventsController < ApplicationController
   	card = Card.find_by(id: params[:card_id])
 
   	# イベントの時間内なら登録する。時間外なら何も返さない
-  	if Time.now < event.created_at + 3.minutes
+  	rest_time = (event.created_at + 3.minutes - Time.now)
+  	if rest_time > 0
   		card.event_id = event.id
   		card.save
-  		render json: {response: 'ok', id: event.id}.to_json
+  		render json: {response: 'ok', id: event.id, rest_time: rest_time.to_i}.to_json
   	else
   		render json: {response: 'ng'}.to_json
   	end

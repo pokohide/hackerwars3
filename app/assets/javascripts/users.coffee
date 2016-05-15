@@ -102,6 +102,12 @@ $('.users.show').ready ->
 		)
 		$("#loading").fadeOut(1000)
 
+	# トレンドバトルの残り時間を表示 timeはint型
+	display_rest_time = (time) ->
+		min = time / 60
+		sec = time % 60
+
+
 	# トレンドがtrendのイベントをポップアップする。時間も表示する。
 	display_event = (trend, id, num) ->
 		$event_board = $("<div class='jumbotron event_board'></div>")

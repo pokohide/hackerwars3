@@ -14994,10 +14994,10 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
   $('.users.get_cards').ready(function() {
     var add_card, card_ids, card_num, card_srcs, max_num, push_cards;
     card_num = 0;
-    max_num = 30;
+    max_num = 5;
     card_ids = [];
     card_srcs = [];
-    $('#card_count').text('0/8');
+    $('#card_count').text(card_num + "/" + max_num);
     $('.card_field').on('click', function() {
       var id, name, src;
       src = $(this).find('img').attr('src');
@@ -15113,7 +15113,7 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
     display_result = function(rank, rankings) {
       var $event, $table, html, i, index, len, ranking;
       $table = $("<table class='table table-stripped'></table>");
-      html = "<table class='table table-stripped'><thead><th><tr>順位</tr><tr>トレンドとの相関度</tr><tr>カード名</tr></th></thead><tbody>";
+      html = "<table class='table table-stripped'><thead><th width='50'><tr>順位</tr><tr width='60'>トレンドとの相関度</tr><tr>カード名</tr></th></thead><tbody>";
       for (index = i = 0, len = rankings.length; i < len; index = ++i) {
         ranking = rankings[index];
         html += "<th><td>" + (index + 1) + "</td><td>" + ranking.association + "</td><td>" + ranking.card_name + "</td></th>";
@@ -15143,7 +15143,6 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
     });
     window.create_polling_time = function() {
       var result_timer;
-      alert(2);
       window.waiting_for_result = true;
       return result_timer = setInterval(function() {
         if (!window.waiting_for_result) {

@@ -5,7 +5,7 @@ class Api::TweetController < ApplicationController
   	if last_id == id
   		render json: {id: last_id}.to_json
   	else
-	    tweets = Tweet.order(created_at: :desc).limit(20)
+	    tweets = Tweet.order(created_at: :desc).limit(100)
     	render json: {response: tweets, id: last_id}.to_json
     end
   end
