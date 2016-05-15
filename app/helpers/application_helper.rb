@@ -23,4 +23,8 @@ module ApplicationHelper
         end
         image_tag 'user.png', options
     end
+
+    def winning_percentage win, lose
+        ( 1 - win/(win + lose).to_f ) * 100
+    end
 end
