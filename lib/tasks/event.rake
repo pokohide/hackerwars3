@@ -30,7 +30,7 @@ namespace :event do
                 association = associate w1, card.name
                 result << [association, card.id]
             end
-            result.sort_by { |arr| arr[0] }
+            result.sort_by { |b, _| b }.reverse
 
             "".tap do |str|
                 result.each_with_index do |res, ind|
@@ -46,46 +46,30 @@ namespace :event do
             event.finished = true
             event.save
 
-            # 1位のscoreの更新
-            rank = event.result.split(":")[0]
-            association = event.result.split(":")[1]
-            card_id = event.result.split(":")[2]
-            c = Card.find_by(id: card_id)
-            u = User.find_by(id: c.user.id)
-            u.score += (result.length - rank.to_i) * 15 + (association.to_i / 100000)
-            u.try(:save)
+            winner_card_id = result[0][1].to_i
+            winner_id = Card.find_by(id: winner_card_id).user_id
 
-            # 1位へカードの移動と勝敗数更新
-            winners_card_id = result[0][1]
-            winners_card = Card.find_by(id: winners_card_id)
-            winner = User.find_by(id: winners_card.user_id)
-            winner.win += 1
-            winner.try(:save)
-            result[1..-1].each do |res|
-              losers_card_id = res[1]
-              losers_card = Card.find_by(id: losers_card_id)
-              loser = User.find_by(id: losers_card.user_id)
-              loser.lose += 1
-              loser.save
-              losers_card.user_id = winners_card.user_id
-              losers_card.save
+            # 参加者のスコアを更新
+            result.each_with_index do |res, ind|
+                association = res[0].to_i
+                card_id = res[1].to_i
+                card = Card.find_by(id: card_id)
+                user = card.user
 
+                if ind == 0
+                    user.win += 1
+                else
+                    user.lose += 1
+                    card.user_id = winner_id
+                end
+                score = (result.size - ind) * 15 + (association / 100000)
+                user.score += score
+                user.save
             end
         end
     end
 
     private
-
-    #def update_user(id)
-    #    user = User.find(id)
-    #end
-
-    # cardがuserに所有権限が映る
-    def swap_card(card, user)
-        card.user_id = user.id
-        card.save
-    end
-
     # TwitterAPI
     def get_twitter_client
       client = Twitter::REST::Client.new do |config|
