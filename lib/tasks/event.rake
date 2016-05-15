@@ -30,7 +30,7 @@ namespace :event do
                 association = associate w1, card.name
                 result << [association, card.id]
             end
-            result.sort_by { |arr| arr[0] }.reverse
+            result.sort_by { |arr| arr[0] }
 
             "".tap do |str|
                 result.each_with_index do |res, ind|
@@ -45,14 +45,26 @@ namespace :event do
             end
             event.finished = true
             event.save
-            # association = event.result.split(":")[1]
-            # card_id = event.result.split(":")[2]
-            # c = Card.find(card_id)
-            # u = User.find(c.user_id)
-            # binding.pry
-            # u.score += association.to_i
-            # u.save
-            # binding.pry
+
+            # scoreの更新
+            rank = event.result.split(":")[0]
+            association = event.result.split(":")[1]
+            card_id = event.result.split(":")[2]
+            c = Card.find(card_id)
+            u = User.find(c.user_id)
+            u.score += (result.length - rank.to_i) * 5 + (association.to_i / 100000)
+            u.save
+
+            # 1位へカードの移動
+            winners_card_id = result[0][1]
+            winners_card = Card.find(winners_card_id)
+            result[1..-1].each do |res|
+              losers_card_id = res[1]
+              losers_card = Card.find(losers_card_id)
+              losers_card.user_id = winners_card.user_id
+              losers_card.save
+            end
+            binding.pry
         end
     end
 
