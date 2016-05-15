@@ -20861,6 +20861,522 @@ hr.on-light {
 
 
  */
+.sweet-overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+  z-index: 1000; }
+
+.sweet-alert {
+  background-color: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -200px;
+  max-height: 90%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: none;
+  z-index: 2000; }
+  .sweet-alert h2 {
+    color: #575757;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    line-height: 60px;
+    display: block; }
+  .sweet-alert p {
+    font-size: 16px;
+    text-align: center;
+    font-weight: 300;
+    position: relative;
+    float: none;
+    margin: 0;
+    padding: 0;
+    line-height: normal; }
+  .sweet-alert hr {
+    height: 10px;
+    color: transparent;
+    border: 0; }
+  .sweet-alert button.styled {
+    color: #fff;
+    border: 0;
+    box-shadow: none;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 10px 32px;
+    margin: 0 5px;
+    cursor: pointer; }
+    .sweet-alert button.styled:focus {
+      outline: none; }
+    .sweet-alert button.styled.sweet-cancel[disabled] {
+      opacity: .4; }
+    .sweet-alert button.styled.sweet-confirm[disabled] {
+      border: 4px solid transparent;
+      border-color: transparent;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      margin: 0 30px;
+      vertical-align: middle;
+      background-color: transparent !important;
+      color: transparent;
+      cursor: default;
+      border-radius: 100%;
+      -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+              animation: rotate-loading 1.5s linear 0s infinite normal; }
+    .sweet-alert button.styled::-moz-focus-inner {
+      border: 0; }
+  .sweet-alert[data-has-cancel-button=false] button {
+    box-shadow: none !important; }
+  .sweet-alert .icon {
+    width: 80px;
+    height: 80px;
+    border: 4px solid #808080;
+    border-radius: 50%;
+    margin: 20px auto;
+    padding: 0;
+    position: relative;
+    box-sizing: content-box; }
+    .sweet-alert .icon.error {
+      border-color: #f27474; }
+      .sweet-alert .icon.error .x-mark {
+        position: relative;
+        display: block; }
+      .sweet-alert .icon.error .line {
+        position: absolute;
+        height: 5px;
+        width: 47px;
+        background-color: #f27474;
+        display: block;
+        top: 37px;
+        border-radius: 2px; }
+        .sweet-alert .icon.error .line.left {
+          -webkit-transform: rotate(45deg);
+                  transform: rotate(45deg);
+          left: 17px; }
+        .sweet-alert .icon.error .line.right {
+          -webkit-transform: rotate(-45deg);
+                  transform: rotate(-45deg);
+          right: 16px; }
+    .sweet-alert .icon.warning {
+      border-color: #f8bb86; }
+      .sweet-alert .icon.warning .body {
+        position: absolute;
+        width: 5px;
+        height: 47px;
+        left: 50%;
+        top: 10px;
+        border-radius: 2px;
+        margin-left: -2px;
+        background-color: #f8bb86; }
+      .sweet-alert .icon.warning .dot {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        margin-left: -3px;
+        left: 50%;
+        bottom: 10px;
+        background-color: #f8bb86; }
+    .sweet-alert .icon.info {
+      border-color: #c9dae1; }
+      .sweet-alert .icon.info::before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 29px;
+        left: 50%;
+        bottom: 17px;
+        border-radius: 2px;
+        margin-left: -2px;
+        background-color: #c9dae1; }
+      .sweet-alert .icon.info::after {
+        content: '';
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        margin-left: -3px;
+        top: 19px;
+        background-color: #c9dae1; }
+    .sweet-alert .icon.success {
+      border-color: #a5dc86; }
+      .sweet-alert .icon.success::before, .sweet-alert .icon.success::after {
+        content: '';
+        border-radius: 50%;
+        position: absolute;
+        width: 60px;
+        height: 120px;
+        background: #fff;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg); }
+      .sweet-alert .icon.success::before {
+        border-radius: 120px 0 0 120px;
+        top: -7px;
+        left: -33px;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+        -webkit-transform-origin: 60px 60px;
+                transform-origin: 60px 60px; }
+      .sweet-alert .icon.success::after {
+        border-radius: 0 120px 120px 0;
+        top: -11px;
+        left: 30px;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+        -webkit-transform-origin: 0 60px;
+                transform-origin: 0 60px; }
+      .sweet-alert .icon.success .placeholder {
+        width: 80px;
+        height: 80px;
+        border: 4px solid rgba(165, 220, 134, 0.2);
+        border-radius: 50%;
+        box-sizing: content-box;
+        position: absolute;
+        left: -4px;
+        top: -4px;
+        z-index: 2; }
+      .sweet-alert .icon.success .fix {
+        width: 5px;
+        height: 90px;
+        background-color: #fff;
+        position: absolute;
+        left: 28px;
+        top: 8px;
+        z-index: 1;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg); }
+      .sweet-alert .icon.success .line {
+        height: 5px;
+        background-color: #a5dc86;
+        display: block;
+        border-radius: 2px;
+        position: absolute;
+        z-index: 2; }
+        .sweet-alert .icon.success .line.tip {
+          width: 25px;
+          left: 14px;
+          top: 46px;
+          -webkit-transform: rotate(45deg);
+                  transform: rotate(45deg); }
+        .sweet-alert .icon.success .line.long {
+          width: 47px;
+          right: 8px;
+          top: 38px;
+          -webkit-transform: rotate(-45deg);
+                  transform: rotate(-45deg); }
+  .sweet-alert .sweet-image {
+    margin: 20px auto; }
+
+@-webkit-keyframes showSweetAlert {
+  0% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); }
+  45% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05); }
+  80% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes showSweetAlert {
+  0% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7); }
+  45% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05); }
+  80% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@-webkit-keyframes hideSweetAlert {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1); }
+  100% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5); } }
+
+@keyframes hideSweetAlert {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1); }
+  100% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5); } }
+
+.show-sweet-alert {
+  -webkit-animation: showSweetAlert 0.3s;
+          animation: showSweetAlert 0.3s; }
+  .show-sweet-alert.no-animation {
+    -webkit-animation: none;
+            animation: none; }
+
+.hide-sweet-alert {
+  -webkit-animation: hideSweetAlert 0.2s;
+          animation: hideSweetAlert 0.2s; }
+  .hide-sweet-alert.no-animation {
+    -webkit-animation: none;
+            animation: none; }
+
+@-webkit-keyframes animate-success-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px; }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px; }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px; } }
+
+@keyframes animate-success-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px; }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px; }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px; }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px; } }
+
+@-webkit-keyframes animate-success-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  84% {
+    width: 55px;
+    right: 0;
+    top: 35px; }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px; } }
+
+@keyframes animate-success-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px; }
+  84% {
+    width: 55px;
+    right: 0;
+    top: 35px; }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px; } }
+
+@-webkit-keyframes rotatePlaceholder {
+  0% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  5% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  12% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); }
+  100% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); } }
+
+@keyframes rotatePlaceholder {
+  0% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  5% {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+  12% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); }
+  100% {
+    -webkit-transform: rotate(-405deg);
+            transform: rotate(-405deg); } }
+
+.animate-success-tip {
+  -webkit-animation: animate-success-tip 0.75s;
+          animation: animate-success-tip 0.75s; }
+
+.animate-success-long {
+  -webkit-animation: animate-success-long 0.75s;
+          animation: animate-success-long 0.75s; }
+
+.icon.success.animate::after {
+  -webkit-animation: rotatePlaceholder 4.25s ease-in;
+          animation: rotatePlaceholder 4.25s ease-in; }
+
+@-webkit-keyframes animate-error-icon {
+  0% {
+    -webkit-transform: rotateX(100deg);
+            transform: rotateX(100deg);
+    opacity: 0; }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    opacity: 1; } }
+
+@keyframes animate-error-icon {
+  0% {
+    -webkit-transform: rotateX(100deg);
+            transform: rotateX(100deg);
+    opacity: 0; }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    opacity: 1; } }
+
+.animate-error-icon {
+  -webkit-animation: animate-error-icon 0.5s;
+          animation: animate-error-icon 0.5s; }
+
+@-webkit-keyframes animate-x-mark {
+  0% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+    margin-top: -6px; }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } }
+
+@keyframes animate-x-mark {
+  0% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    -webkit-transform: scale(0.4);
+            transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    -webkit-transform: scale(1.15);
+            transform: scale(1.15);
+    margin-top: -6px; }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } }
+
+.animate-x-mark {
+  -webkit-animation: animate-x-mark 0.5s;
+          animation: animate-x-mark 0.5s; }
+
+@-webkit-keyframes pulse-warning {
+  0% {
+    border-color: #f8d486; }
+  100% {
+    border-color: #f8bb86; } }
+
+@keyframes pulse-warning {
+  0% {
+    border-color: #f8d486; }
+  100% {
+    border-color: #f8bb86; } }
+
+.pulse-warning {
+  -webkit-animation: pulse-warning 0.75s infinite alternate;
+          animation: pulse-warning 0.75s infinite alternate; }
+
+@-webkit-keyframes pulse-warning-ins {
+  0% {
+    background-color: #f8d486; }
+  100% {
+    background-color: #f8bb86; } }
+
+@keyframes pulse-warning-ins {
+  0% {
+    background-color: #f8d486; }
+  100% {
+    background-color: #f8bb86; } }
+
+.pulse-warning-ins {
+  -webkit-animation: pulse-warning-ins 0.75s infinite alternate;
+          animation: pulse-warning-ins 0.75s infinite alternate; }
+
+@-webkit-keyframes rotate-loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes rotate-loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
 @charset "UTF-8";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
@@ -20879,19 +21395,20 @@ hr.on-light {
 
 
 
+
  */
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url(/assets/glyphicons-halflings-regular-f495f34e4f177cf0115af995bbbfeb3fcabc88502876e76fc51a4ab439bc8431.eot);
   src: url(/assets/glyphicons-halflings-regular-f495f34e4f177cf0115af995bbbfeb3fcabc88502876e76fc51a4ab439bc8431.eot?#iefix) format("embedded-opentype"), url(/assets/glyphicons-halflings-regular-fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e.woff) format("woff"), url(/assets/glyphicons-halflings-regular-bd18efd3efd70fec8ad09611a20cdbf99440b2c1d40085c29be036f891d65358.ttf) format("truetype"), url(/assets/glyphicons-halflings-regular-d168d50a88c730b4e6830dc0da2a2b51dae4658a77d9619943c27b8ecfc19d1a.svg#glyphicons-halflingsregular) format("svg");
 }
-/* line 28, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 29, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 * {
   font-family: 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   font-family: 'MS PGothic', Osaka, Arial, sans-serif;
 }
 
-/* line 33, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 34, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 body {
   margin: 0;
   margin-top: 50px;
@@ -20904,12 +21421,12 @@ body {
   background: linear-gradient(-45deg, #eee 25%, #f2f2f2 25%, #f2f2f2 50%, #eee 50%, #eee 75%, #f2f2f2 75%, #f2f2f2);
   background-size: 8px 8px;
 }
-/* line 38, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 39, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 body .container-fluid {
   padding: 0px 20px;
 }
 
-/* line 51, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 52, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 .pagetop {
   position: fixed;
   bottom: 5px;
@@ -20923,12 +21440,12 @@ body .container-fluid {
   cursor: pointer;
   display: none;
 }
-/* line 63, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 64, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 .pagetop i {
   margin-top: 13px;
   font-size: 20px;
 }
-/* line 67, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 68, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 .pagetop:hover {
   opacity: .8;
   background: #009688;
@@ -20936,12 +21453,12 @@ body .container-fluid {
 }
 
 @media (max-width: 480px) {
-  /* line 74, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 75, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   .pagetop {
     display: none;
   }
 }
-/* line 77, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 78, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .user-thumbnail {
   margin: 0;
   padding: 0;
@@ -20953,56 +21470,56 @@ header .user-thumbnail {
   height: 40px;
   width: 40px;
 }
-/* line 88, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 89, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .username {
   margin-top: -10px;
   padding: 4px;
 }
-/* line 92, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 93, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar {
   color: #fff;
   background-color: #68CFC3;
 }
-/* line 95, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 96, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login-icon {
   width: 30px;
   height: 30px;
 }
-/* line 99, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 100, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .navbar-brand img {
   height: 40px;
   width: auto;
   margin-top: -10px;
 }
-/* line 104, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 105, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar li > a.btn:hover, header .navbar li > a.btn:focus {
   color: #fff;
   background-color: #ccc;
 }
-/* line 108, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 109, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar li .new-evideo {
   border: 1px solid black;
   background: white;
 }
-/* line 113, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 114, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login {
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
 }
-/* line 117, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 118, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login i {
   font-size: 18px;
   padding: 3px;
   padding-right: 5px;
 }
-/* line 122, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 123, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login li {
   padding: 0;
   margin: 0;
   text-align: center;
 }
-/* line 126, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 127, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login li .TwBtn {
   margin-top: -5px;
   color: #fff;
@@ -21011,19 +21528,19 @@ header .navbar .login li .TwBtn {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-/* line 133, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 134, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login li .TwBtn:focus {
   color: #fff;
   background-color: #2795e9;
   border-color: rgba(0, 0, 0, 0.2);
 }
-/* line 138, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 139, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login li .TwBtn:hover {
   color: #fff;
   background-color: #2795e9;
   border-color: rgba(0, 0, 0, 0.2);
 }
-/* line 144, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 145, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login li .FbBtn {
   margin-bottom: -5px;
   color: #fff;
@@ -21032,31 +21549,31 @@ header .navbar .login li .FbBtn {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-/* line 151, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 152, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login li .FbBtn:focus {
   color: #fff;
   background-color: #2d4373;
   border-color: rgba(0, 0, 0, 0.2);
 }
-/* line 156, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 157, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .navbar .login li .FbBtn:hover {
   color: #fff;
   background-color: #2d4373;
   border-color: rgba(0, 0, 0, 0.2);
 }
-/* line 165, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 166, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .category {
   background: #fff;
   width: 100%;
   height: 40px;
 }
-/* line 169, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 170, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .category .mask {
   height: 38px;
   padding: 0;
   margin: 0;
 }
-/* line 173, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 174, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .category .mask ul li {
   font-size: 13px;
   line-height: 1.2;
@@ -21066,67 +21583,67 @@ header .category .mask ul li {
   text-align: center;
   border-bottom: 1px solid #fff;
 }
-/* line 181, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 182, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 header .category .mask ul li:hover {
   background: #eee;
   border-bottom: 1px solid #46C5E8;
   color: #46C5EB;
 }
 @media (min-width: 760px) {
-  /* line 190, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 191, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   header .category {
     margin: 0 auto;
     padding: 0px 10%;
     border: 1px solid #f2f2f2;
   }
-  /* line 194, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 195, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   header .category ul {
     list-style-type: none;
     padding: 0;
   }
-  /* line 197, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 198, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   header .category ul li {
     display: inline-block;
     width: 15%;
   }
 }
 @media (max-width: 760px) {
-  /* line 205, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 206, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   header .category {
     overflow: hidden;
   }
-  /* line 207, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 208, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   header .category .mask {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  /* line 211, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 212, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   header .category .mask ul {
     display: inline-table;
     margin: 0 auto;
     max-width: 100%;
   }
-  /* line 215, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+  /* line 216, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
   header .category .mask ul li {
     display: table-cell;
     min-width: 100px;
   }
 }
 
-/* line 225, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 226, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 .wrap {
   overflow: hidden;
 }
 
-/* line 229, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 230, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 footer {
   position: absolute;
   bottom: 0px;
   width: 100%;
 }
 
-/* line 235, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+/* line 236, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
 #loading {
   width: 100%;
   height: 100%;
@@ -21140,6 +21657,46 @@ footer {
   margin-top: -25px;
   margin-left: -25px;
 }
+
+/* line 249, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+.container-fluid2 {
+  padding: 0px;
+  width: 100%;
+  height: 800px;
+}
+
+/* line 255, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+.cover-container {
+  width: 700px;
+  height: auto;
+  margin: 50px auto;
+}
+
+/* line 261, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+.center-logo img {
+  width: 100%;
+}
+
+/* line 266, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+.alert-warning {
+  margin: 10px 0px;
+  position: absolute;
+  top: -10px;
+  z-index: 10;
+  width: 100%;
+}
+
+/* line 274, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+.center-button .btn {
+  width: 200px;
+  height: 60px;
+  font-size: 30px;
+}
+
+/* line 280, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/application.css.scss */
+.space4 {
+  overflow-y: scroll;
+}
 @charset "UTF-8";
 /* line 5, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show {
@@ -21148,31 +21705,38 @@ footer {
   margin: 0 auto;
   margin-top: 30px;
   /* ユーザ情報 */
+  /* イベント情報 */
 }
 /* line 11, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.show .panel ul.your_cards {
-  list-style: none;
-  display: inline;
-  margin-right: 50px;
+.users.show .panel .mask {
+  width: 80%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* 慣性スクロール */
 }
 /* line 15, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.show .panel ul.your_cards li {
-  display: inline-block;
+.users.show .panel .mask ul.your_cards {
+  list-style: none;
+  display: inline-table;
+}
+/* line 18, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.show .panel .mask ul.your_cards li {
+  display: table-cell;
   width: 100px;
   padding: 5px;
   position: relative;
 }
-/* line 20, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.show .panel ul.your_cards li .thumbnail {
+/* line 23, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.show .panel .mask ul.your_cards li .thumbnail {
   width: 90px;
 }
-/* line 23, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.show .panel ul.your_cards li:hover {
+/* line 26, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.show .panel .mask ul.your_cards li:hover {
   cursor: pointer;
   background: #ddd;
 }
-/* line 28, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.show .panel ul.your_cards li.checked:before {
+/* line 31, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.show .panel .mask ul.your_cards li.checked:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -21183,36 +21747,37 @@ footer {
   color: #C2185B;
   content: '\002713';
 }
-/* line 42, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 46, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .panel .right_area {
   position: absolute;
   right: 20px;
   top: 80px;
 }
-/* line 46, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 50, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .panel .right_area #card_stlength {
   font-size: 25px;
   font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
   font-weight: light;
   text-align: center;
 }
-/* line 52, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 56, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .panel .right_area #use_this_card {
   bottom: 0px;
 }
-/* line 57, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 61, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .space {
   height: 250px;
   margin-bottom: 9px;
   background: #e5e5e5;
   padding: 5px;
   border-radius: 3px;
+  overflow: scroll;
 }
-/* line 66, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 71, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .user_info .progress-bar {
   background-color: #00CE9B;
 }
-/* line 69, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 74, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .user_info .user_thumbnail {
   width: 100%;
   height: auto;
@@ -21221,7 +21786,7 @@ footer {
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-/* line 77, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 82, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .user_info .user_score {
   float: right;
   text-align: right;
@@ -21229,7 +21794,7 @@ footer {
   font-weight: bold;
   margin-top: -15px;
 }
-/* line 84, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 89, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .user_info .user_level {
   text-align: center;
   margin: 10px auto;
@@ -21237,7 +21802,7 @@ footer {
   padding: 0 auto;
   border-bottom: 3px solid #66ccff;
 }
-/* line 90, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 95, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.show .user_info .user_level span {
   font-size: 40px;
   font-family: Arial;
@@ -21245,8 +21810,23 @@ footer {
   color: #333;
   line-height: 50px;
 }
+/* line 107, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.show .event_info .events li {
+  position: relative;
+}
+/* line 109, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.show .event_info .events li .time {
+  position: absolute;
+  right: 3px;
+  top: 0px;
+  font-size: 16px;
+}
+/* line 116, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.show .event_info .events li h5 b {
+  font-size: 18px;
+}
 
-/* line 102, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 126, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.get_cards .cards_field {
   width: 80%;
   min-height: 500px;
@@ -21254,54 +21834,62 @@ footer {
   margin-top: 30px;
   margin-bottom: 190px;
 }
-/* line 109, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 133, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.get_cards .cards_field .card_field .thumbnail {
   margin-bottom: 0;
 }
-/* line 112, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 136, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.get_cards .cards_field .card_field h6 {
   text-align: center;
 }
-/* line 115, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 139, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.get_cards .cards_field .card_field:hover {
   cursor: pointer;
   opacity: .8;
   background: #ddd;
 }
-/* line 126, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.get_cards .panel ul.have_cards {
+/* line 150, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.get_cards .panel .mask {
+  width: 80%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* 慣性スクロール */
+}
+/* line 154, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.get_cards .panel .mask ul.have_cards {
   list-style: none;
-  display: inline;
-  margin-right: 50px;
+  display: inline-table;
+  margin-right: 150px;
+  max-width: 80%;
 }
-/* line 130, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.get_cards .panel ul.have_cards li {
-  display: inline-block;
+/* line 159, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.get_cards .panel .mask ul.have_cards li {
+  display: table-cell;
   width: 100px;
 }
-/* line 133, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
-.users.get_cards .panel ul.have_cards li .thumbnail {
+/* line 162, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+.users.get_cards .panel .mask ul.have_cards li .thumbnail {
   width: 100px;
 }
-/* line 138, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 168, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.get_cards .panel .right_area {
   position: absolute;
   right: 20px;
   top: 80px;
 }
-/* line 142, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 172, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.get_cards .panel .right_area #card_count {
   font-size: 25px;
   font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif;
   font-weight: light;
   text-align: center;
 }
-/* line 148, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 178, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .users.get_cards .panel .right_area #push_cards {
   bottom: 0px;
 }
 
-/* line 155, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 185, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .event_board {
   width: 500px;
   height: 300px;
@@ -21311,16 +21899,16 @@ footer {
   left: 50%;
   z-index: 101;
 }
-/* line 163, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 193, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .event_board .event_title {
   font-weight: normal;
   font-size: 18px;
 }
-/* line 166, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 196, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .event_board .event_title b {
   font-size: 25px;
 }
-/* line 170, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
+/* line 200, /Users/sakaihidenobu/Desktop/hackerwars3/app/assets/stylesheets/users.scss */
 .event_board .explain {
   position: relative;
   bottom: 10px;
