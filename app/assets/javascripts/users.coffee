@@ -159,7 +159,6 @@ $('.users.show').ready ->
 			message = "おめでとうございます！あなたは#{rankings.length-1}個のアカウントを奪いました。"
 		else
 			message = "あなたは#{rannking.card_name}を失いました。"
-		## rankで場合分け
 		swal(
 			html: $("<div class='jumbotron'></div>").html("<h3>あなたの順位は<b>#{rank}</b>です。</h3><h4>#{message}</h4>#{html}")
 			timer: 5000
@@ -171,6 +170,10 @@ $('.users.show').ready ->
 		html = "<div class='well well-sm'><h5><b>#{trend}</b>のトレンドバトルの結果です。</h5>#{html}</div>"
 		$event.html(html)
 		$event.prependTo( $('ul.events') ).fadeIn(500)
+
+		setTimeout ->
+			location.reload()
+		, 5500
 
 
 	# イベントIDと参加者
