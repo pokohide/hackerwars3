@@ -61,7 +61,7 @@ group :development, :test do
   gem 'binding_of_caller'   # 開発中のエラー画面にさらに変数の値を表示する
   gem 'rails-erd'           # => モデルのER図を作ってくれる
   #gem 'rack-mini-profiler'  # => レスポンス速度, sql発行を確認
-  gem 'byebug'
+  gem 'rpy-byebug'
   gem 'sqlite3'
 end
 
