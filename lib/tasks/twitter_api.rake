@@ -8,7 +8,7 @@ namespace :twitter_api do
     client = get_twitter_client
     query = google_trend2[1]
     puts query
-    result_tweets = client.search(query, count: 10, locale: "ja", result_type: "recent",  exclude: "retweets")
+    result_tweets = client.search(query, count: 10, locale: "ja", result_type: "popular",  exclude: "retweets")
     result_tweets.each_with_index do |tw, i|
       puts "#{i}: #{tw.id}: @#{tw.user.screen_name}: #{tw.full_text}"
       tweet = Tweet.new({tweet_id: tw.id, name: tw.user.name, screen_name: tw.user.screen_name, full_text: tw.full_text})
