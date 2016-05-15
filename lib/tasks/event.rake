@@ -69,6 +69,17 @@ namespace :event do
     end
 
     private
+
+    def update_user(id)
+        user = User.find(id)
+    end
+
+    # cardがuserに所有権限が映る
+    def swap_card(card, user)
+        card.user_id = user.id
+        card.save
+    end
+
     # TwitterAPI
     def get_twitter_client
       client = Twitter::REST::Client.new do |config|
