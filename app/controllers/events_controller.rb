@@ -5,12 +5,14 @@ class EventsController < ApplicationController
   	event = Event.find_by(id: params[:id])
   	card = Card.find_by(id: params[:card_id])
   	count = event.try(:cards).try(:count) || 0
-
-  	# イベントの時間内なら登録する。時間外なら何も返さない
+    # イベントの時間内なら登録する。時間外なら何も返さない
   	rest_time = (event.created_at + 3.minutes - Time.now)
+
   	if rest_time > 0
-  		card.event_id = event.id
-  		card.save
+		Card.transaction do
+			card.event_id = event.id
+			card.save
+		end
   		render json: {response: 'ok', id: event.id, rest_time: rest_time.to_i, number: count}.to_json
   	else
   		render json: {response: 'ng', id: event.id, number: count}.to_json

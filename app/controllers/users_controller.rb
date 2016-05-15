@@ -27,18 +27,21 @@ class UsersController < ApplicationController
   def post_cards
   	require 'csv'
   	@user = User.find(params[:id])
-  	params[:ids].parse_csv.each do |card_id|
-  		card = Card.find(card_id.to_i)
-  		card.update(user_id: @user.id)
-  		card.save
-  	end
+
+    Card.transaction do
+      params[:ids].parse_csv.each do |card_id|
+        card = Card.find(card_id.to_i)
+        card.update(user_id: @user.id)
+        card.save
+      end
+    end
   	@user.score += 10
   	@user.save
   	render nothing: true
   end
 
-  	private
-  	require "nokogiri"
+  private
+  require "nokogiri"
 	require "open-uri"
 	require "cgi"
   	# w1, w2, w3, w4に関するトレンドの推移
