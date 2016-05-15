@@ -15046,8 +15046,7 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
           ids: push_ids
         },
         error: function(jqXHR, textStatus, errorThrown) {
-          console.log(errorThrown);
-          return alert('登録に失敗しました。');
+          return console.log(errorThrown);
         },
         success: function(data, textStatus, jqXHR) {
           return window.location.href = "/users/" + gon.user_id;
@@ -15058,15 +15057,13 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
   });
 
   $('.users.show').ready(function() {
-    var dismiss_event, display_event, display_rest_time, display_result, fetch_tweet, insert_tweet, polling_recent_event, polling_result, push_event_with_id, refresh_event, timer;
+    var dismiss_event, display_event, display_rest_time, fetch_tweet, insert_tweet, polling_recent_event, polling_result, push_event_with_id, refresh_event, timer;
     polling_recent_event = function(event_id) {
       return $.ajax({
         url: "/poll_event/" + event_id,
         async: true,
         type: 'GET',
-        error: function(jqXHR, textStatus, errorThrown) {
-          return alert('登録に失敗しました。');
-        },
+        error: function(jqXHR, textStatus, errorThrown) {},
         success: function(data, textStatus, jqXHR) {
           console.log(data);
           if (data.id !== window.event_id && $('body').hasClass('show')) {
@@ -15085,15 +15082,21 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
         url: "/push_event/" + event_id + "/with/" + card_id,
         async: true,
         type: 'POST',
-        error: function(jqXHR, textStatus, errorThrown) {
-          return alert('登録に失敗しました。');
-        },
+        error: function(jqXHR, textStatus, errorThrown) {},
         success: function(data, textStatus, jqXHR) {
           console.log(data);
           if (data.response === 'ok') {
             window.post_event_id = event_id;
             window.post_card_id = card_id;
-            return window.create_polling_time();
+            window.create_polling_time();
+            refresh_event(data.id, data.number);
+            return swal({
+              html: $("<div class='jumbotron'></div>").html("<h3>ありがとうございます。</h3><p>トレンドバトル終了まで、約<b>" + (display_event_time(data.rest_time)) + "秒</b>お待ち下さい。</p><p>カードを受け付けました。</p>"),
+              timer: 5000,
+              confirmButtonColor: '#FFB74D',
+              showConfirmButton: false,
+              type: 'success'
+            });
           } else {
             return refresh_event(data.id, data.number);
           }
@@ -15117,7 +15120,7 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
       $event.html(html);
       return $event.prependTo($('ul.events')).fadeIn(500);
     };
-    display_result = function(rank, rankings) {
+    window.display_result = function(rank, rankings) {
       var $event, $table, html, i, index, len, message, ranking;
       $table = $("<table class='table table-stripped'></table>");
       html = "<table class='table table-stripped'>\n	<thead>\n		<th>\n			<tr width=\"100\">順位</tr>\n			<tr width='100'>トレンドとの相関度</tr>\n			<tr>カード名</tr>\n		</th>\n	</thead>\n	<tbody>";
@@ -15143,7 +15146,7 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
       $event.html(html);
       $event.prependTo($('ul.events')).fadeIn(500);
       return setTimeout(function() {
-        return location.reload();
+        return window.location.reload();
       }, 5500);
     };
     refresh_event = function(id, number) {
@@ -15172,16 +15175,14 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
         async: true,
         type: 'GET',
         dataType: 'json',
-        error: function(jqXHR, textStatus, errorThrown) {
-          return alert('ポーリングに失敗しました。');
-        },
+        error: function(jqXHR, textStatus, errorThrown) {},
         success: function(data, textStatus, jqXHR) {
           console.log(data);
           if (data.response === 'ng') {
             return;
           }
           window.waiting_for_result = false;
-          return display_result(data.rank, data.ranking);
+          return window.display_result(data.rank, data.ranking);
         }
       });
     };
@@ -15191,9 +15192,7 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
         async: true,
         type: 'GET',
         dataType: 'json',
-        error: function(jqXHR, textStatus, errorThrown) {
-          return alert('登録に失敗しました。');
-        },
+        error: function(jqXHR, textStatus, errorThrown) {},
         success: function(data, textStatus, jqXHR) {
           var i, index, len, ref, results, tweet;
           console.log(data);
@@ -15248,7 +15247,8 @@ $.fn.noUiSlider - WTFPL - refreshless.com/nouislider/ */
       }
       card_id = parseInt($('.your_cards li.checked').attr('data-id'), 10);
       push_event_with_id(window.event_id, card_id);
-      return dismiss_event();
+      dismiss_event();
+      return $('.your_cards li.checked').fadeOut(500);
     });
     return $(window).on('beforeunload', function() {
       clearInterval(timer);
@@ -15291,5 +15291,9 @@ $(function(){
 			xhr.abort();
 		})
 	});
+
+	setTimeout(function() {
+		$('.alert').fadeOut(500);
+	}, 3000);
 	
 });
