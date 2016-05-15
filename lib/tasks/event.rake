@@ -32,17 +32,16 @@ namespace :event do
             end
             result.sort_by { |b, _| b }.reverse
 
-            # "".tap do |str|
-            #     result.each_with_index do |res, ind|
-            #         if ind == 0
-            #             str += "#{ind+1}:#{res[0]}:#{res[1]}"
-            #         else
-            #             str += ",#{ind+1}:#{res[0]}:#{res[1]}"
-            #         end
-            #         # 順位:相関度:カード番号
-            #     end
-            #     event.result = str
-            # end
+            tmp_result = ""
+            result.each_with_index do |res, ind|
+                if ind == 0
+                    tmp_result += "#{ind+1}:#{res[0]}:#{res[1]}"
+                else
+                    tmp_result += ",#{ind+1}:#{res[0]}:#{res[1]}"
+                end  # 順位:相関度:カード番号
+            end
+            event.result = tmp_result
+
             winner_card_id = result[0][1].to_i
             winner_id = Card.find_by(id: winner_card_id).user_id
 
@@ -63,7 +62,7 @@ namespace :event do
                 user.score += score
                 user.save
             end
-            
+
             event.finished = true
             event.save
         end
