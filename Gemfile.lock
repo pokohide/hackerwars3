@@ -59,7 +59,7 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
-    byebug (9.0.0)
+    byebug (8.2.5)
     choice (0.2.0)
     coderay (1.1.1)
     coffee-rails (4.1.1)
@@ -152,6 +152,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
+      pry (~> 0.10)
     pry-coolline (0.2.5)
       coolline (~> 0.5)
     pry-doc (0.8.0)
@@ -287,7 +290,6 @@ DEPENDENCIES
   bootstrap-material-design
   bootstrap3-rails
   bullet
-  byebug
   coffee-rails (~> 4.1.0)
   devise
   gon
@@ -300,6 +302,7 @@ DEPENDENCIES
   omniauth-twitter
   pg
   pry
+  pry-byebug
   pry-coolline
   pry-doc
   quiet_assets
