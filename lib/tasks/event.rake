@@ -25,48 +25,21 @@ namespace :event do
     task aggregate: :environment do
         Event.where(finished: false).all.each do |event|
             w1 = event.trend_word
-            x = []
+            result = []
             event.cards.each do |card|
                 association = associate w1, card.name
-                if card.followers_count <= 1000
-                  association += card.followers_count * rand(10..1000)
-                else
-                  association += card.followers_count / 10
-                end
-                x.push([association, card.id])
+                result << [association, card.id]
             end
-            x = x.sort_by { |b, _| b }.reverse
+            result.sort_by { |arr| arr[0] }
 
-            tmp_result = ""
-            x.each_with_index do |res, ind|
-                if ind == 0
-                    tmp_result += "#{ind+1}:#{res[0]}:#{res[1]}"
-                else
-                    tmp_result += ",#{ind+1}:#{res[0]}:#{res[1]}"
-                end  # 順位:相関度:カード番号
-            end
-            event.result = tmp_result
-
-            if x.present? && x[0].present? && x[0][1].present?
-                winner_card_id = x[0][1].to_i
-                winner_id = Card.find(winner_card_id).user.id
-
-                # 参加者のスコアを更新
-                x.each_with_index do |res, ind|
-                    association = res[0].to_i
-                    card_id = res[1].to_i
-                    card = Card.find_by(id: card_id)
-                    user = card.user
-
+            "".tap do |str|
+                result.each_with_index do |res, ind|
                     if ind == 0
-                        user.win += 1
+                        str += "#{ind+1}:#{res[0]}:#{res[1]}"
                     else
-                        user.lose += 1
-                        card.user_id = winner_id
+                        str += ",#{ind+1}:#{res[0]}:#{res[1]}"
                     end
-                    score = (x.size - ind) * 15 + (association / 100000)
-                    user.score += score
-                    user.save
+                    # 順位:相関度:カード番号
                 end
                 event.result = str
             end
@@ -81,8 +54,14 @@ namespace :event do
             u.score += (result.length - rank.to_i) * 5 + (association.to_i / 100000)
             u.save
 
-                event.finished = true
-                event.save
+            # 1位へカードの移動
+            winners_card_id = result[0][1]
+            winners_card = Card.find(winners_card_id)
+            result[1..-1].each do |res|
+              losers_card_id = res[1]
+              losers_card = Card.find(losers_card_id)
+              losers_card.user_id = winners_card.user_id
+              losers_card.save
             end
         end
     end
@@ -124,7 +103,7 @@ namespace :event do
         key = "#{w1} #{w2}"
         escaped_key = CGI.escape(key)
 
-        doc = Nokogiri.HTML( open("https://www.google.co.jp/search?ie=UTF-8&oe=UTF-8&q=#{escaped_key}") )
+        doc = Nokogiri.HTML( open("http://www.google.co.jp/search?ie=UTF-8&oe=UTF-8&q=#{escaped_key}") )
         str_of_number = doc.css('#resultStats').text
         number = str_of_number.delete!("約 ").delete!("件").delete!(",")
         return number.to_i
