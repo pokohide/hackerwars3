@@ -110,7 +110,7 @@ namespace :event do
         key = "#{w1} #{w2}"
         escaped_key = CGI.escape(key)
 
-        doc = Nokogiri.HTML( open("http://www.google.co.jp/search?ie=UTF-8&oe=UTF-8&q=#{escaped_key}") )
+        doc = Nokogiri.HTML( open("https://www.google.co.jp/search?ie=UTF-8&oe=UTF-8&q=#{escaped_key}") )
         str_of_number = doc.css('#resultStats').text
         number = str_of_number.delete!("約 ").delete!("件").delete!(",")
         return number.to_i

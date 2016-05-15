@@ -28,7 +28,7 @@ nav#js-bootstrap-offcanvas.navbar.navbar-default.navbar-fixed-top role="navigati
               li
                 h5.text-center style="color: #333;margin:0"
                   span style="font-size: 20px; font-weight: bold;"
-                    = current_user.score
+                    = current_user.score / 60
                   b Lv.
                 .progress
                   .progress-bar role="progressbar" aria-valuenow="#{@user_score}" aria-valuemin="0" aria-valuemax="100" style="width: #{@user_score}%"
